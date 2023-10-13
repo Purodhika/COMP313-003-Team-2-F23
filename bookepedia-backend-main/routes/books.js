@@ -91,7 +91,7 @@ router.delete("/:isbn", getBookByIsbn, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
+/*
 router.delete("/:title", getBookByTitle, async (req, res) => {
   try {
     await res.book.deleteOne();
@@ -101,7 +101,7 @@ router.delete("/:title", getBookByTitle, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
+*/
 
 router.delete("/delete/:id", async (req, res) => {
   console.log("delete " + req.params.id);
@@ -130,7 +130,7 @@ router.get("/:isbn", async (req, res) => {
   } 
   
 });
-
+/*
 router.get("/:title", async (req, res) => { 
   try {
     const books = await Book.find({ title: req.params.title }).sort({views: -1, dateAdded: -1});
@@ -140,7 +140,7 @@ router.get("/:title", async (req, res) => {
   } 
   
 });
-
+*/
 
 router.get("/details/:_id", async (req, res) => { 
   console.log("made it ")
@@ -202,7 +202,7 @@ async function getBookByIsbn(req, res, next) {
   res.book = book;
   next();
 }
-
+/*
 async function getBookByTitle(req, res, next) {
   let book;
   try {
@@ -219,5 +219,5 @@ async function getBookByTitle(req, res, next) {
   res.book = book;
   next();
 }
-
+*/
 module.exports = router;
