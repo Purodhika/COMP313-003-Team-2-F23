@@ -92,6 +92,16 @@ router.delete("/:isbn", getBookByIsbn, async (req, res) => {
   }
 });
 
+router.delete("/:title", getBookByTitle, async (req, res) => {
+  try {
+    await res.book.deleteOne();
+    console.log(res.book)
+    res.json({ message: "Deleted Book" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 router.delete("/delete/:id", async (req, res) => {
   console.log("delete " + req.params.id);
@@ -114,6 +124,16 @@ router.delete("/delete/:id", async (req, res) => {
 router.get("/:isbn", async (req, res) => { 
   try {
     const books = await Book.find({ isbn: req.params.isbn }).sort({views: -1, dateAdded: -1});
+    res.json(books);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  } 
+  
+});
+
+router.get("/:title", async (req, res) => { 
+  try {
+    const books = await Book.find({ title: req.params.title }).sort({views: -1, dateAdded: -1});
     res.json(books);
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -150,6 +170,12 @@ router.get("/sort/:sort", async (req, res) => {
     } else if (sortOrder == 3){
       console.log(sortOrder)
        books = await Book.find().sort({price: 1});
+    }else if (sortOrder == 4){
+      console.log(sortOrder)
+       books = await Book.find().sort({genre: 1});
+    }else if (sortOrder == 5){
+      console.log(sortOrder)
+       books = await Book.find().sort({authors: 1});
     }
     
     res.json(books);
@@ -168,6 +194,23 @@ async function getBookByIsbn(req, res, next) {
       return res
         .status(404)
         .json({ message: "Cannot find book isbn " + req.params.isbn });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+  
+  res.book = book;
+  next();
+}
+
+async function getBookByTitle(req, res, next) {
+  let book;
+  try {
+    book = await Book.findOne({ title: req.params.title });
+    if (book == null) {
+      return res
+        .status(404)
+        .json({ message: "Cannot find book title " + req.params.title });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });

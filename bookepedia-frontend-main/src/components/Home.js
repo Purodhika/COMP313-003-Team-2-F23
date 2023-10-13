@@ -19,6 +19,7 @@ function Home() {
 
 
   const [isbn, setIsbn] = useState('');
+  const [title, setTitle] = useState('');
   //const [book, setBook] = useState(null);
   //const [error, setError] = useState(null);
 
@@ -27,6 +28,20 @@ function Home() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(`http://localhost:3500/book/${isbn}`);
+      setBooks(response.data);
+      if(response.data.length == 0) alert("Search Returned 0 results")
+      //setBook(response.data);
+      //setError(null);
+    } catch (err) {
+      //setBooks([]);
+      console.log(err)
+     // setError('Book not found');
+    }
+  };
+
+  const handleSearch2 = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3500/book/${title}`);
       setBooks(response.data);
       if(response.data.length == 0) alert("Search Returned 0 results")
       //setBook(response.data);
@@ -63,13 +78,17 @@ function Home() {
       <option value="1">Popularity/Newest</option>
       <option value="2">Price - High to Low</option>
       <option value="3">Price - Low to High</option>
+      <option value="4">Genre</option>
+      <option value="5">Authors</option>
     </Form.Select>
     </div>
 
     <input type="text" placeholder="ISBN"  value={isbn} onChange={(e) => setIsbn(e.target.value)}/>
       <button onClick={handleSearch}>Search</button>
       <br/><br/>
-
+    <input type="text" placeholder="Title"  value={title} onChange={(e) => setTitle(e.target.value)}/>
+      <button onClick={handleSearch2}>Search</button>
+      <br/><br/>
 
 
     <CardGroup>
