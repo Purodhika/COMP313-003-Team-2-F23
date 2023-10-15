@@ -4,6 +4,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Image from "react-bootstrap/Image";
+import { useState } from "react"; 
+//import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api"; // Import Google Map components
+import { GOOGLE_MAPS_API_KEY } from "./config"; 
+
 
 import logo from "./media/bookepedia.gif";
 import accountContext from "./userAccounts/accountContext";
@@ -11,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 function BookUpload(props) {
   const { userEmail } = React.useContext(accountContext);
+  
   const [bookRec, setBookRec] = React.useState({
     title: "",
     isbn: "",
@@ -29,7 +35,13 @@ function BookUpload(props) {
   const onchange = (e) => {
     setBookRec({ ...bookRec, [e.target.name]: e.target.value });
   };
+  const [markerPosition, setMarkerPosition] = useState(null); // State to store the selected location
 
+  const onMapClick = (e) => {
+    setMarkerPosition(e.latLng);
+    setBookRec({ ...bookRec, location: `${e.latLng.lat()}, ${e.latLng.lng()}` });
+          };
+          
   const SubmitRec = async (e) => {
     e.preventDefault();
     console.log(file);
@@ -62,20 +74,6 @@ function BookUpload(props) {
       });
     //console.log(result.data);
 
-    /*
-    await axios
-      .post("http://localhost:3500/book/upload/", bookRec)
-      .then((res) => {
-        console.log("success");
-        alert(`The Book "${bookRec.title}" has been uploaded successfully`);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Please try again, an error occurred");
-      });
-
-      */
   };
 
   return (
@@ -226,6 +224,24 @@ function BookUpload(props) {
           />
         </Form.Group>
 
+        <Form.Group controlId="formFileLg" className="mb-3">
+          <Form.Label>Seller Location</Form.Label>
+           <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
+            <GoogleMap
+            center={{ lat: 0, lng: 0 }} // Center the map initially at a default location
+            zoom={5} // Set the initial zoom level
+            onClick={onMapClick} // Attach the click event handler
+            // Add any other map options here, such as apiKey, libraries, etc.
+            >
+            {markerPosition && (
+              <Marker
+                position={markerPosition}
+                // You can customize the marker icon if needed
+              />
+            )}
+          </GoogleMap>
+        </LoadScript>
+        </Form.Group>
         <Button variant="primary" type="submit">
           Upload Book
         </Button>

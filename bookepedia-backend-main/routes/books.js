@@ -44,31 +44,6 @@ router.post("/upload/", upload.single('image'), async (req, res) => {
 
 });
 
-
-/*
-router.post("/upload/", async (req, res) => {
-  const book = new Book({  
-    
-    title: req.body.title,
-    isbn: req.body.isbn,
-    authors: req.body.authors,
-    genre: req.body.genre,
-    price: req.body.price,
-    description: req.body.description,
-    sellerEmail: req.body.sellerEmail,
-
-  });
-  console.log(book)
-  try {
-    const newBook = await book.save();
-    res.status(201).json(newBook);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-*/
-
-
 //Get all books
 router.get('/', async (req, res) =>{
 
@@ -105,12 +80,6 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
   
-//finding user by email
-/*router.get("/:isbn", getBookByIsbn, (req, res) => {
-  res.json(res.book);
-});*/
-
-
 router.get("/:isbn", async (req, res) => { 
   try {
     const books = await Book.find({ isbn: req.params.isbn }).sort({views: -1, dateAdded: -1});
