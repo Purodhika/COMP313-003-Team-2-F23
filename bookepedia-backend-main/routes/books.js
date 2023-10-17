@@ -11,7 +11,7 @@ const upload = multer({ dest: './BookImagesUploaded/' })
 
 //Creating one book
 router.post("/upload/", upload.single('image'), async (req, res) => {
-  console.log("Server made it")
+  //console.log("Server made it")
   let fileName = 'noImage.png' //default placeholder image
   if (req.file) {
     fileName = req.file.filename
@@ -28,7 +28,10 @@ router.post("/upload/", upload.single('image'), async (req, res) => {
     description: req.body.description,
     sellerEmail: req.body.sellerEmail,
     image: fileName, 
-    condition: req.body.condition
+    condition: req.body.condition,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    
 
   }); 
   console.log(book)  
@@ -92,7 +95,7 @@ router.get("/:isbn", async (req, res) => {
 
 
 router.get("/details/:_id", async (req, res) => { 
-  console.log("made it ")
+  //console.log("made it ")
   try {
     const book = await Book.findOne({ _id: req.params._id });
     book.views++
