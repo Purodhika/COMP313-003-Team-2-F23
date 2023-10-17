@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Image from "react-bootstrap/Image";
 import { useState } from "react"; 
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api"; // Import Google Map components
+import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api"; // Import Google Map components
  import logo from "./media/bookepedia.gif";
 import accountContext from "./userAccounts/accountContext";
 import { useNavigate } from "react-router-dom";
@@ -253,7 +253,7 @@ function BookUpload() {
           onClick={onMapClick}
           >
            {markerPosition && (
-              <Marker
+              <MarkerF
                 position={markerPosition}
                 draggable={true}
                 onDragEnd={(e) =>

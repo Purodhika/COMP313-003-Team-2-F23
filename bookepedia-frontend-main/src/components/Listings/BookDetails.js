@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {GOOGLE_MAPS_API_KEY} from "../config";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 
 export default function BookDetails() {
   let navigate = useNavigate();
@@ -118,11 +118,17 @@ export default function BookDetails() {
             <div style={{ width: "100%", height: "300px" }}>
               <GoogleMap
                 center={selectedLocation}
-                zoom={15}
+                zoom={18}
                 mapContainerStyle={{ height: "100%", width: "100%" }}
               >
-                <Marker position={selectedLocation} />
+                {selectedLocation && (
+                <MarkerF 
+                
+                position={selectedLocation} 
+                />
+                )}
               </GoogleMap>
+
             </div>
           ) : null}
           <br />
