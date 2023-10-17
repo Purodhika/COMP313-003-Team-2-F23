@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import Card from "react-bootstrap/Card";
+import {GOOGLE_MAPS_API_KEY} from "../config";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 
 export default function BookDetails() {
   let navigate = useNavigate();
   const { _id } = useParams();
   const [book, setBook] = useState();
   const [conditionVerification, setConditionVerification] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null); // State for selected location
 
   useEffect(() => {
     axios
       .get(`http://localhost:3500/book/details/${_id}`)
       .then((res) => {
         setBook(res.data);
+        setSelectedLocation({ lat: res.data.latitude, lng: res.data.longitude }); 
+
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY, 
+  });
   return (
     <>
       {book ? (
@@ -106,6 +113,25 @@ export default function BookDetails() {
               {new Date(book.dateAdded).toLocaleString("en-CA")}
               <br />
             </p>
+             {/* Display the map with the selected location */}
+          {isLoaded && selectedLocation ? (
+            <div style={{ width: "100%", height: "300px" }}>
+              <GoogleMap
+                center={selectedLocation}
+                zoom={18}
+                mapContainerStyle={{ height: "100%", width: "100%" }}
+              >
+                {selectedLocation && (
+                <MarkerF 
+                
+                position={selectedLocation} 
+                />
+                )}
+              </GoogleMap>
+
+            </div>
+          ) : null}
+          <br />
           </div>
         </div>
       ) : (

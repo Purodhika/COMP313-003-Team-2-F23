@@ -1,16 +1,42 @@
-import React from "react";
+import React, { useEffect} from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Image from "react-bootstrap/Image";
-
-import logo from "./media/bookepedia.gif";
+import { useState } from "react"; 
+import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api"; // Import Google Map components
+ import logo from "./media/bookepedia.gif";
 import accountContext from "./userAccounts/accountContext";
 import { useNavigate } from "react-router-dom";
+import "./BookUpload.css";
+import {GOOGLE_MAPS_API_KEY} from "./config"
 
-function BookUpload(props) {
+function BookUpload() {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+  });
+
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [markerPosition, setMarkerPosition] = useState(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const newCenter= 
+      { lat : position.coords.latitude,
+        lng : position.coords.longitude
+      };
+      setCenter(newCenter)
+      setMarkerPosition(newCenter)
+    });
+  },[]);
+
+  const onMapClick = (e) => {
+    setMarkerPosition({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+  };
+
   const { userEmail } = React.useContext(accountContext);
+  
   const [bookRec, setBookRec] = React.useState({
     title: "",
     isbn: "",
@@ -30,9 +56,9 @@ function BookUpload(props) {
     setBookRec({ ...bookRec, [e.target.name]: e.target.value });
   };
 
+          
   const SubmitRec = async (e) => {
     e.preventDefault();
-    console.log(file);
 
     const formData = new FormData();
     formData.append("image", file);
@@ -44,9 +70,9 @@ function BookUpload(props) {
     formData.append("description", bookRec.description);
     formData.append("sellerEmail", bookRec.sellerEmail);
     formData.append("condition", bookRec.condition);
+    formData.append("latitude", markerPosition.lat);
+    formData.append("longitude", markerPosition.lng);
     
-    //formData.append("bookRec", bookRec);
-
     const result = await axios
       .post("http://localhost:3500/book/upload/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -60,22 +86,8 @@ function BookUpload(props) {
         console.log(err);
         alert("Please try again, an error occurred");
       });
-    //console.log(result.data);
+    
 
-    /*
-    await axios
-      .post("http://localhost:3500/book/upload/", bookRec)
-      .then((res) => {
-        console.log("success");
-        alert(`The Book "${bookRec.title}" has been uploaded successfully`);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Please try again, an error occurred");
-      });
-
-      */
   };
 
   return (
@@ -92,6 +104,7 @@ function BookUpload(props) {
       >
         Book Upload
       </h1>
+   
 
       <Form
         encType="multipart/form-data"
@@ -226,6 +239,35 @@ function BookUpload(props) {
           />
         </Form.Group>
 
+        <Form.Group controlId="formFileLg" className="mb-3">
+          <Form.Label>Seller Location</Form.Label>
+             
+      <div>
+      {!isLoaded ? (
+        <h1>Loading...</h1>
+      ) : (
+        <GoogleMap
+          mapContainerClassName="map-container"
+          center={center}
+          zoom={18}
+          onClick={onMapClick}
+          >
+           {markerPosition && (
+              <MarkerF
+                position={markerPosition}
+                draggable={true}
+                onDragEnd={(e) =>
+                  setMarkerPosition({
+                    lat: e.latLng.lat(),
+                    lng: e.latLng.lng(),
+                  })
+                }
+              />
+            )}  
+        </GoogleMap>
+      )}
+    </div>
+        </Form.Group>
         <Button variant="primary" type="submit">
           Upload Book
         </Button>
@@ -235,6 +277,7 @@ function BookUpload(props) {
           type="button"
           style={{ marginLeft: "20px" }}
           onClick={() => navigate("/")}
+          
         >
           Cancel
         </Button>

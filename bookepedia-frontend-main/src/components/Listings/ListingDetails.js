@@ -18,7 +18,9 @@ function ShowListing(props) {
     genre: "",
     price: undefined,
     description: "",
-    sellerEmail: userEmail
+    sellerEmail: userEmail,
+    latitude: "",
+    longitude: ""
   });
 
   let navigate = useNavigate();
