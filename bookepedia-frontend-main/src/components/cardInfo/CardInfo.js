@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import './card.css';
 import accountContext from "../userAccounts/accountContext";
 
 export default function CardInfo({ setPaymentValidated }) {
@@ -50,8 +51,8 @@ export default function CardInfo({ setPaymentValidated }) {
   }
 
   return (
-    <div>
-      <h1>Please enter your card details</h1>
+<div className="d-flex flex-column align-items-center">
+      <h1 style={{justifyContent:'center'}}>Please enter your card details</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formCardNumber">
           <Form.Label>Card Number</Form.Label>
@@ -62,6 +63,8 @@ export default function CardInfo({ setPaymentValidated }) {
             onChange={handleChange}
             placeholder="XXXX XXXX XXXX XXXX"
             required={true}
+            className="smaller-input" // Add your custom CSS class here
+
           />
         </Form.Group>
 
@@ -74,6 +77,8 @@ export default function CardInfo({ setPaymentValidated }) {
             onChange={handleChange}
             placeholder="John Doe"
             required={true}
+            className="smaller-input" // Add your custom CSS class here
+
           />
         </Form.Group>
 
@@ -86,6 +91,8 @@ export default function CardInfo({ setPaymentValidated }) {
             onChange={handleChange}
             placeholder="1 Abernathy Rd"
             required={true}
+            className="smaller-input" // Add your custom CSS class here
+
           />
         </Form.Group>
 
@@ -98,6 +105,8 @@ export default function CardInfo({ setPaymentValidated }) {
             onChange={handleChange}
             placeholder="A1A 1A1"
             required={true}
+            className="smaller-input" // Add your custom CSS class here
+
           />
         </Form.Group>
 

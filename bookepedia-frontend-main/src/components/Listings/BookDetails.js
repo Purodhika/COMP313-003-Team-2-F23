@@ -106,10 +106,11 @@ export default function BookDetails() {
             <br />
             <br />
             <p>
-              <b>Genre:</b> {book.genre} <br />
-              <b>ISBN:</b> {book.isbn} <br />
-              <b>Sold by:</b> {book.sellerEmail} <br />
-              <b>Date Added:</b>{" "}
+            <span style={{ marginBottom: '10px' }}><b>Genre: </b>{book.genre}</span><br />
+<span><b>ISBN: </b>{book.isbn}</span><br />
+<span><b>Sold by: </b>{book.sellerEmail}</span><br />
+<span><b>Date Added: </b>{new Date(book.dateAdded).toLocaleString("en-CA")}</span><br />
+
               {new Date(book.dateAdded).toLocaleString("en-CA")}
               <br />
             </p>
