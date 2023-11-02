@@ -20,27 +20,29 @@ export default function AllListings() {
 
   return (
     <div>
-      {userType === "ADMIN" ? <h1>All Listings</h1> : <h1>Your Listings</h1>}
+      {userType === "ADMIN" ? <h1>All Listings</h1> : <h1 style={{paddingLeft:'50rem'}}>Your Listings</h1>}
 
-      {userType !== "ADMIN"
-        ? allListings.map((listing) =>
-            listing.sellerEmail === userEmail ? (
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', paddingRight:'7rem' }}>
+        {userType !== "ADMIN"
+          ? allListings.map((listing) =>
+              listing.sellerEmail === userEmail ? (
+                <Listing
+                  key={listing._id}
+                  book={listing}
+                  setAllListings={setAllListings}
+                />
+              ) : (
+                <div key={listing._id}></div>
+              )
+            )
+          : allListings.map((listing) => (
               <Listing
                 key={listing._id}
                 book={listing}
                 setAllListings={setAllListings}
               />
-            ) : (
-              <div></div>
-            )
-          )
-        : allListings.map((listing) => (
-            <Listing
-              key={listing._id}
-              book={listing}
-              setAllListings={setAllListings}
-            />
-          ))}
+            ))}
+      </div>
     </div>
   );
 }
