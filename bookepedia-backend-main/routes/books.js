@@ -82,7 +82,12 @@ router.get('/:_id', async (req, res) => {
 router.post('/edit/:_id', upload.single('image'), async (req, res) => {
   try {
     const bookId = req.params._id;
-    const updatedData = req.body;
+    let filename = "";
+    if (req.file) {
+      filename = req.file.filename
+    }
+    let updatedData = req.body;
+    updatedData.image = filename;
     console.log('Received PUT request with updated data:', updatedData);
 
     // Use Mongoose to find and update the book

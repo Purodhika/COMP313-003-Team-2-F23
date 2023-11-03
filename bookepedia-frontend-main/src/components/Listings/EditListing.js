@@ -12,7 +12,7 @@ function EditListing() {
   const { id } = useParams();
   const { userEmail } = React.useContext(accountContext);
 
-  const [file, setFile] = React.useState(null);
+  const [file, setFile] = React.useState();
 
   const [bookRec, setBookRec] = React.useState({
     title: "",
@@ -22,7 +22,8 @@ function EditListing() {
     price: "",
     description: "",
     sellerEmail: userEmail,
-    condition: ""
+    condition: "",
+    image: ""
   });
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function EditListing() {
           description: bookData.description,
           sellerEmail: bookData.sellerEmail,
           condition: bookData.condition,
+          image: bookData.image
         });
       })
       .catch((error) => {
@@ -48,12 +50,17 @@ function EditListing() {
       });
   }, [id]);
 
+  useEffect(() => {
+    setFile(file);
+  }, [file]);
+  
   const onchange = (e) => {
     setBookRec({ ...bookRec, [e.target.name]: e.target.value });
   };
 
   const SubmitRec = async (e) => {
     e.preventDefault();
+    console.log(file);
 
     var formData = new FormData();
     formData.append("image", file);
@@ -81,6 +88,21 @@ function EditListing() {
         alert('Please try again, an error occurred');
       });
   };
+
+  useEffect(() => {
+    // Fetch the image from the server and set it as the 'file' state
+    if (bookRec.image) {
+      fetch(`http://localhost:3500/BookImagesUploaded/${bookRec.image}`)
+        .then((response) => response.blob()) // Get the image as a Blob
+        .then((blob) => {
+          const fileFromBlob = new File([blob], bookRec.image);
+          setFile(fileFromBlob);
+        })
+        .catch((error) => {
+          console.error('Error fetching image:', error);
+        });
+    }
+  }, [bookRec.image]);
   return (
     
     <div style={{margin:"90px"}}>
@@ -211,12 +233,18 @@ function EditListing() {
             filename={file}
             type="file"
             accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
           />
           <br />
           <Image
             thumbnail
+            //src={file ? URL.createObjectURL(file) : ""}
             src={file ? URL.createObjectURL(file) : ""}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src="http://localhost:3500/BookImagesUploaded/noImage.png";}}
             style={{
               maxWidth: "100px",
               maxHeight: "100px",
