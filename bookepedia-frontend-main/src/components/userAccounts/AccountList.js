@@ -10,7 +10,7 @@ export default function AccountList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3500/user/")
+      .get("https://bookepedia-qta8.onrender.com/user/")
       .then((res) => {
         setAllAccounts(res.data);
       })

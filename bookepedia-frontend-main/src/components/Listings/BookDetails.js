@@ -15,7 +15,7 @@ export default function BookDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3500/book/details/${_id}`)
+      .get(`https://bookepedia-qta8.onrender.com/book/details/${_id}`)
       .then((res) => {
         setBook(res.data);
         setSelectedLocation({ lat: res.data.latitude, lng: res.data.longitude }); 
@@ -43,11 +43,11 @@ export default function BookDetails() {
               border: "5px solid #0047a9",
               float: "left",
             }}
-            src={"http://localhost:3500/BookImagesUploaded/" + book.image}
+            src={"https://bookepedia-qta8.onrender.com/BookImagesUploaded/" + book.image}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src =
-                "http://localhost:3500/BookImagesUploaded/noImage.png";
+                "https://bookepedia-qta8.onrender.com/BookImagesUploaded/noImage.png";
             }}
             alt={"book cover"}
           />

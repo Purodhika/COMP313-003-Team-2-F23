@@ -14,13 +14,13 @@ export default function Listing({ book, setAllListings }) {
   
   async function deleteRecord() {
     await axios
-      .delete(`http://localhost:3500/book/delete/${book._id}`)
+      .delete(`https://bookepedia-qta8.onrender.com/book/delete/${book._id}`)
       // .then((res) => navigate("/home"))
       .catch((err) => {
         console.log(err);
       });
     await axios
-      .get("http://localhost:3500/user/listings")
+      .get("https://bookepedia-qta8.onrender.com/user/listings")
       .then((res) => {
         setAllListings(res.data);
       })
@@ -43,11 +43,11 @@ export default function Listing({ book, setAllListings }) {
             minHeight: "65px",
             objectFit: "contain",
           }}
-          src={"http://localhost:3500/BookImagesUploaded/" + book.image}
+          src={"https://bookepedia-qta8.onrender.com/BookImagesUploaded/" + book.image}
           onError={({ currentTarget }) => {
             currentTarget.onerror = null; // prevents looping
             currentTarget.src =
-              "http://localhost:3500/BookImagesUploaded/noImage.png";
+              "https://bookepedia-qta8.onrender.com/BookImagesUploaded/noImage.png";
           }}
         />
         <Card.Title>

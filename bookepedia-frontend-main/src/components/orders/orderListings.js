@@ -7,7 +7,7 @@ const ActiveOrders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3500/orders")
+      .get("https://bookepedia-qta8.onrender.com/orders")
       .then((res) => setOrders(res.data))
       .catch((err) => console.error(err));
   }, []);

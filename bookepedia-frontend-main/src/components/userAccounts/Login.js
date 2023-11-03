@@ -28,7 +28,7 @@ export default function Login() {
     event.preventDefault();
     setErrorMessage("");
     axios
-      .get(`http://localhost:3500/user/${email}`)
+      .get(`https://bookepedia-qta8.onrender.com/user/${email}`)
       .then((res) => {
         if (authenticate(res.data.password)) {
           setLoggedIn(true);

@@ -28,7 +28,7 @@ function EditListing() {
 
   useEffect(() => {
     // Fetch the book data based on the 'id' from the URL
-    axios.get(`http://localhost:3500/book/${id}`)
+    axios.get(`https://bookepedia-qta8.onrender.com/book/${id}`)
       .then((response) => {
         const bookData = response.data;
 
@@ -75,7 +75,7 @@ function EditListing() {
     
      // Send the updated data to the server
     axios
-      .post(`http://localhost:3500/book/edit/${id}`, formData, {
+      .post(`https://bookepedia-qta8.onrender.com/book/edit/${id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {
@@ -92,7 +92,7 @@ function EditListing() {
   useEffect(() => {
     // Fetch the image from the server and set it as the 'file' state
     if (bookRec.image) {
-      fetch(`http://localhost:3500/BookImagesUploaded/${bookRec.image}`)
+      fetch(`https://bookepedia-qta8.onrender.com/BookImagesUploaded/${bookRec.image}`)
         .then((response) => response.blob()) // Get the image as a Blob
         .then((blob) => {
           const fileFromBlob = new File([blob], bookRec.image);
@@ -244,7 +244,7 @@ function EditListing() {
             src={file ? URL.createObjectURL(file) : ""}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
-              currentTarget.src="http://localhost:3500/BookImagesUploaded/noImage.png";}}
+              currentTarget.src="https://bookepedia-qta8.onrender.com/BookImagesUploaded/noImage.png";}}
             style={{
               maxWidth: "100px",
               maxHeight: "100px",
