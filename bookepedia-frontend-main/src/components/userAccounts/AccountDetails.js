@@ -16,7 +16,7 @@ export default function AccountDetails() {
   useEffect(() => {
     if (userEmail !== "") {
       axios
-        .get(`http://localhost:3500/user/${userEmail}`)
+        .get(`https://bookepedia-qta8.onrender.com/user/${userEmail}`)
         .then((res) => {
           setFirstName(res.data.fname);
           setLastName(res.data.lname);
@@ -50,7 +50,7 @@ export default function AccountDetails() {
     };
 
     axios
-      .patch(`http://localhost:3500/user/${userEmail}`, bodyData)
+      .patch(`https://bookepedia-qta8.onrender.com/user/${userEmail}`, bodyData)
       .then(() => {
         navigate("/home");
       })

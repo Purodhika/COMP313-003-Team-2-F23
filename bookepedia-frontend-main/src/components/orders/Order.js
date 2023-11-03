@@ -12,7 +12,7 @@ export default function Order({ order, setOrders }) {
 
   function deleteRecord() {
     axios
-      .delete(`http://localhost:3500/orders/delete-order/${order._id}`)
+      .delete(`https://bookepedia-qta8.onrender.com/orders/delete-order/${order._id}`)
       .then((res) => navigate("/home"))
       .catch((err) => {
         console.log(err);
@@ -21,12 +21,12 @@ export default function Order({ order, setOrders }) {
 
   async function updateStatus(status, id) {
     try {
-      await axios.put(`http://localhost:3500/orders/statusUpdate/${id}`, {
+      await axios.put(`https://bookepedia-qta8.onrender.com/orders/statusUpdate/${id}`, {
         status,
       });
 
       axios
-        .get("http://localhost:3500/orders")
+        .get("https://bookepedia-qta8.onrender.com/orders")
         .then((res) => setOrders(res.data))
         .catch((err) => console.error(err));
     } catch (err) {

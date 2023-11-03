@@ -74,7 +74,7 @@ function BookUpload() {
     formData.append("longitude", markerPosition.lng);
     
     const result = await axios
-      .post("http://localhost:3500/book/upload/", formData, {
+      .post("https://bookepedia-qta8.onrender.com/book/upload/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {

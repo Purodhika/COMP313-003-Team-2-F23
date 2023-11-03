@@ -15,7 +15,7 @@ export default function EditAccount() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3500/user/${email}`)
+      .get(`https://bookepedia-qta8.onrender.com/user/${email}`)
       .then((res) => {
         populateFields(res.data);
       })
@@ -62,7 +62,7 @@ export default function EditAccount() {
     };
 
     axios
-      .patch(`http://localhost:3500/user/${email}`, bodyData)
+      .patch(`https://bookepedia-qta8.onrender.com/user/${email}`, bodyData)
       .then(() => {
         navigate("/home");
       })

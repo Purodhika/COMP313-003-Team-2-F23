@@ -9,7 +9,7 @@ export default function Account({ user }) {
 
   function deleteRecord() {
     axios
-      .delete(`http://localhost:3500/user/${user.email}`)
+      .delete(`https://bookepedia-qta8.onrender.com/user/${user.email}`)
       .then((res) => navigate("/home"))
       .catch((err) => {
         console.log(err);

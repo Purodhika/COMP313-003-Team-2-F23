@@ -9,7 +9,7 @@ export default function AllListings() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3500/user/listings")
+      .get("https://bookepedia-qta8.onrender.com/user/listings")
       .then((res) => {
         setAllListings(res.data);
       })

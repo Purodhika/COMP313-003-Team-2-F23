@@ -23,7 +23,7 @@ export default function OrderSummary() {
   //get book
   useEffect(() => {
     axios
-      .get(`http://localhost:3500/book/details/${_id}`)
+      .get(`https://bookepedia-qta8.onrender.com/book/details/${_id}`)
       .then((res) => {
         setBook(res.data);
       })
@@ -44,7 +44,7 @@ export default function OrderSummary() {
     };
 
     axios
-      .post(`http://localhost:3500/orders/add-order`, bodyData)
+      .post(`https://bookepedia-qta8.onrender.com/orders/add-order`, bodyData)
       .then((res) => {
         console.log(res.status);
         if (res.status === 201) {
