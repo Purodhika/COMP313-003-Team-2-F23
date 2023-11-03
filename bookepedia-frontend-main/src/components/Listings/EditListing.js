@@ -1,42 +1,19 @@
-import React, { useEffect} from "react";
-import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Image from "react-bootstrap/Image";
-import { useState } from "react"; 
-import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api"; // Import Google Map components
- import logo from "./media/bookepedia.gif";
-import accountContext from "./userAccounts/accountContext";
-import { useNavigate } from "react-router-dom";
-import "./BookUpload.css";
-import {GOOGLE_MAPS_API_KEY} from "./config"
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Image from 'react-bootstrap/Image';
+import accountContext from '../userAccounts/accountContext';
 
-function BookUpload() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-  });
-
-  const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [markerPosition, setMarkerPosition] = useState(null);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const newCenter= 
-      { lat : position.coords.latitude,
-        lng : position.coords.longitude
-      };
-      setCenter(newCenter)
-      setMarkerPosition(newCenter)
-    });
-  },[]);
-
-  const onMapClick = (e) => {
-    setMarkerPosition({ lat: e.latLng.lat(), lng: e.latLng.lng() });
-  };
-
+function EditListing() {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const { userEmail } = React.useContext(accountContext);
-  
+
+  const [file, setFile] = React.useState();
+
   const [bookRec, setBookRec] = React.useState({
     title: "",
     isbn: "",
@@ -45,22 +22,47 @@ function BookUpload() {
     price: "",
     description: "",
     sellerEmail: userEmail,
-    condition: ""
+    condition: "",
+    image: ""
   });
 
-  const [file, setFile] = React.useState();
+  useEffect(() => {
+    // Fetch the book data based on the 'id' from the URL
+    axios.get(`http://localhost:3500/book/${id}`)
+      .then((response) => {
+        const bookData = response.data;
 
-  let navigate = useNavigate();
+        // Populate the form with the fetched book data
+        setBookRec({
+          title: bookData.title,
+          isbn: bookData.isbn,
+          authors: bookData.authors,
+          genre: bookData.genre,
+          price: bookData.price,
+          description: bookData.description,
+          sellerEmail: bookData.sellerEmail,
+          condition: bookData.condition,
+          image: bookData.image
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching book data:', error);
+      });
+  }, [id]);
 
+  useEffect(() => {
+    setFile(file);
+  }, [file]);
+  
   const onchange = (e) => {
     setBookRec({ ...bookRec, [e.target.name]: e.target.value });
   };
 
-          
   const SubmitRec = async (e) => {
     e.preventDefault();
+    console.log(file);
 
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append("image", file);
     formData.append("title", bookRec.title);
     formData.append("isbn", bookRec.isbn);
@@ -70,40 +72,46 @@ function BookUpload() {
     formData.append("description", bookRec.description);
     formData.append("sellerEmail", bookRec.sellerEmail);
     formData.append("condition", bookRec.condition);
-    formData.append("latitude", markerPosition.lat);
-    formData.append("longitude", markerPosition.lng);
     
-    const result = await axios
-      .post("http://localhost:3500/book/upload/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+     // Send the updated data to the server
+    axios
+      .post(`http://localhost:3500/book/edit/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {
-        console.log("success");
-        alert(`The Book "${bookRec.title}" has been uploaded successfully`);
-        navigate("/");
+        console.log(res);
+        alert(`The Book "${bookRec.title}" has been updated successfully`);
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);
-        alert("Please try again, an error occurred");
+        alert('Please try again, an error occurred');
       });
-    
-
   };
 
+  useEffect(() => {
+    // Fetch the image from the server and set it as the 'file' state
+    if (bookRec.image) {
+      fetch(`http://localhost:3500/BookImagesUploaded/${bookRec.image}`)
+        .then((response) => response.blob()) // Get the image as a Blob
+        .then((blob) => {
+          const fileFromBlob = new File([blob], bookRec.image);
+          setFile(fileFromBlob);
+        })
+        .catch((error) => {
+          console.error('Error fetching image:', error);
+        });
+    }
+  }, [bookRec.image]);
   return (
     
     <div style={{margin:"90px"}}>
-      <img
-        alt="logo"
-        src={logo}
-        className="mx-auto d-block"
-        style={{ width: "130px" }}
-      />
+   
       <h1
         className="text-center border border-2"
         style={{ padding: "10px", background: "#0084ab52" }}
       >
-        Book Upload
+        Book Update
       </h1>
    
 
@@ -224,14 +232,19 @@ function BookUpload() {
             
             filename={file}
             type="file"
-            multiple
             accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
           />
           <br />
           <Image
             thumbnail
+            //src={file ? URL.createObjectURL(file) : ""}
             src={file ? URL.createObjectURL(file) : ""}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src="http://localhost:3500/BookImagesUploaded/noImage.png";}}
             style={{
               maxWidth: "100px",
               maxHeight: "100px",
@@ -240,51 +253,18 @@ function BookUpload() {
           />
         </Form.Group>
 
-        <Form.Group controlId="formFileLg" className="mb-3">
-          <Form.Label>Seller Location</Form.Label>
-             
-      <div>
-      {!isLoaded ? (
-        <h1>Loading...</h1>
-      ) : (
-        <GoogleMap
-          mapContainerClassName="map-container"
-          center={center}
-          zoom={18}
-          onClick={onMapClick}
-          >
-           {markerPosition && (
-              <MarkerF
-                position={markerPosition}
-                draggable={true}
-                onDragEnd={(e) =>
-                  setMarkerPosition({
-                    lat: e.latLng.lat(),
-                    lng: e.latLng.lng(),
-                  })
-                }
-              />
-            )}  
-        </GoogleMap>
-      )}
-    </div>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Upload Book
-        </Button>
 
-        <Button
-          variant="danger"
-          type="button"
-          style={{ marginLeft: "20px" }}
-          onClick={() => navigate("/")}
-          
-        >
-          Cancel
+        <Button variant="primary" type="submit">
+          Update Book
         </Button>
       </Form>
     </div>
   );
 }
 
-export default BookUpload;
+export default EditListing;
+
+
+  
+
+
