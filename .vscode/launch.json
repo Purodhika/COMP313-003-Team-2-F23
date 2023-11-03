@@ -16,6 +16,12 @@
             "name": "Run npm start",
             "request": "launch",
             "type": "node-terminal"
+        },
+        {
+            "command": "cd bookepedia-backend-main; npm start",
+            "name": "debug server",
+            "request": "launch",
+            "type": "node-terminal"
         }
     ]
 }

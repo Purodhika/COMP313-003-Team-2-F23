@@ -4,9 +4,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 
+
 export default function Listing({ book, setAllListings }) {
   let navigate = useNavigate();
 
+  async function handleEdit() {
+    navigate(`/edit/${book._id}`, { state: { book } });
+  }
+  
   async function deleteRecord() {
     await axios
       .delete(`http://localhost:3500/book/delete/${book._id}`)
@@ -14,7 +19,6 @@ export default function Listing({ book, setAllListings }) {
       .catch((err) => {
         console.log(err);
       });
-
     await axios
       .get("http://localhost:3500/user/listings")
       .then((res) => {
@@ -25,9 +29,7 @@ export default function Listing({ book, setAllListings }) {
       });
   }
 
-  function handleEdit(event) {
-    navigate(`/edit-listing/${event.target.value}`, true);
-  }
+ 
 
   return (
     <Card style={{ width: "25rem" }}>
@@ -55,9 +57,9 @@ export default function Listing({ book, setAllListings }) {
         <Card.Subtitle className="mb-2 text-muted">
           Sold by:{book.sellerEmail}
         </Card.Subtitle>
-        {/* <Button variant="primary" value={book.isbn} onClick={handleEdit}>
-          Edit
-        </Button>  */}
+        <Button variant="primary" onClick={handleEdit}>
+          Update
+        </Button>
         {book.sold ? <Button variant="success">SOLD</Button> : <span></span>}
         {"  "}
         <Button variant="danger" onClick={deleteRecord}>
@@ -66,4 +68,5 @@ export default function Listing({ book, setAllListings }) {
       </Card.Body>
     </Card>
   );
-}
+ }
+

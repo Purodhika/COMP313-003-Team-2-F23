@@ -59,6 +59,46 @@ router.get('/', async (req, res) =>{
 
 })
 
+router.get('/:_id', async (req, res) => {
+  const bookId = req.params._id;
+
+  try {
+    // Use Mongoose or your preferred database library to fetch the book data by its ID
+    const book = await Book.findById(bookId);
+
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+
+    res.status(200).json(book);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error fetching book data' });
+  }
+});
+
+
+// PUT route to edit a book
+router.post('/edit/:_id', upload.single('image'), async (req, res) => {
+  try {
+    const bookId = req.params._id;
+    const updatedData = req.body;
+    console.log('Received PUT request with updated data:', updatedData);
+
+    // Use Mongoose to find and update the book
+    const updatedBook = await Book.findByIdAndUpdate(bookId, updatedData, { new: true });
+
+    if (!updatedBook) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+
+    res.status(200).json(updatedBook);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error updating the book' });
+  }
+});
+
 
 router.delete("/:isbn", getBookByIsbn, async (req, res) => {
   try {
@@ -81,7 +121,6 @@ router.delete("/delete/:id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
   
 router.get("/:isbn", async (req, res) => { 
   try {
