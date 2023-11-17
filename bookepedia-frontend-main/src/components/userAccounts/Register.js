@@ -13,6 +13,7 @@ function Register(props) {
     lname: "",
     email: "",
     password: "",
+    userType: ""
   });
 
   let navigate = useNavigate();
@@ -120,6 +121,21 @@ function Register(props) {
             type="password"
             placeholder="Password"
           />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Account Type</Form.Label>
+          <Form.Control
+            as="select"
+            name="userType"
+            type="text"
+            value={userRec.userType}
+            onChange={onchange}
+          >
+            <option value="DELIVERY">DELIVERY</option>
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+          </Form.Control>
         </Form.Group>
 
         <Button variant="primary" type="submit">

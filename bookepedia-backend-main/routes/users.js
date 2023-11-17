@@ -10,7 +10,7 @@ router.post("/register/", async (req, res) => {
     lname: req.body.lname,
     email: req.body.email,
     password: req.body.password,
-    userType: "USER",
+    userType: req.body.userType,
   });
   console.log(user);
   try {
