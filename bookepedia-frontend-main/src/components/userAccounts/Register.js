@@ -132,8 +132,8 @@ function Register(props) {
             value={userRec.userType}
             onChange={onchange}
           >
-            <option value="DELIVERY">DELIVERY</option>
             <option value="USER">USER</option>
+            <option value="DELIVERY">DELIVERY</option>
             <option value="ADMIN">ADMIN</option>
           </Form.Control>
         </Form.Group>
