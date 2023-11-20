@@ -53,18 +53,22 @@ function NavBar() {
             navbarScroll
           >
             <LinkContainer to="home">
-              <Nav.Link style={{ transition: "color 0.3s" }}>Home</Nav.Link>
+              <Nav.Link style={{ transition: "color 0.3s" }}
+                onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Home</Nav.Link>
             </LinkContainer>
             {userType === "ADMIN" && loggedIn ? (
               <LinkContainer to="listings">
-                <Nav.Link style={{ transition: "color 0.3s" }}>All Listings</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>All Listings</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
             )}
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="listings">
-                <Nav.Link style={{ transition: "color 0.3s" }}>Your Listings</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Your Listings</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -72,7 +76,8 @@ function NavBar() {
 
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="your-orders">
-                <Nav.Link style={{ transition: "color 0.3s" }}>Your Orders</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Your Orders</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -108,7 +113,8 @@ function NavBar() {
 
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="upload">
-                <Nav.Link style={{ transition: "color 0.3s" }}>Add Book +</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Add Book +</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -116,7 +122,8 @@ function NavBar() {
 
             {userType === "ADMIN" ? (
               <LinkContainer to="/all-accounts">
-                <Nav.Link style={{ transition: "color 0.3s" }}>Accounts</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Accounts</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -124,7 +131,8 @@ function NavBar() {
 
             {userType === "DELIVERY" ? (
               <LinkContainer to="/order-list">
-                <Nav.Link style={{ transition: "color 0.3s" }}>Orders</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Orders</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -132,7 +140,9 @@ function NavBar() {
 
             {loggedIn ? (
               <LinkContainer to="account-details">
-                <Nav.Link style={{ transition: "color 0.3s" }}>My Account</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}
+                onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>My Account</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -142,17 +152,24 @@ function NavBar() {
               <div></div>
             ) : (
               <LinkContainer to="register">
-                <Nav.Link style={{ transition: "color 0.3s" }}>Register</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}
+                  onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+                >Register</Nav.Link>
               </LinkContainer>
             )}
 
             {loggedIn ? (
-              <Nav.Link onClick={handleLogout} style={{ transition: "color 0.3s" }}>
+              <Nav.Link onClick={handleLogout} style={{ transition: "color 0.3s" }}
+              onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+              onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>
                 Logout
               </Nav.Link>
             ) : (
               <LinkContainer to="login">
-                <Nav.Link style={{ transition: "color 0.3s" }}>Login</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}
+                  onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Login</Nav.Link>
               </LinkContainer>
             )}
           </Nav>

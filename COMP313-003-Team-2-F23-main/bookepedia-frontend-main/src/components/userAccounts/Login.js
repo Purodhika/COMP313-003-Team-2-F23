@@ -6,7 +6,6 @@ import accountContext from "./accountContext";
 //css
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import logo from "../media/bookepedia.gif";
 
 export default function Login() {
@@ -14,15 +13,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { setLoggedIn, setUserType, setUserEmail } =
-    React.useContext(accountContext);
+  const { setLoggedIn, setUserType, setUserEmail } = React.useContext(accountContext);
 
   let navigate = useNavigate();
-
-  //connect with database
-  //find by id via emailfield
-  //check password with corresponding value
-  //if successful, update accountContext
 
   function handleLogIn(event) {
     event.preventDefault();
@@ -45,12 +38,13 @@ export default function Login() {
   }
 
   function handleChange(event) {
-    switch (event.target.name) {
+    const { name, value } = event.target;
+    switch (name) {
       case "email":
-        setEmail(event.target.value);
+        setEmail(value);
         break;
       case "password":
-        setPassword(event.target.value);
+        setPassword(value);
         break;
       default:
         break;
@@ -58,11 +52,7 @@ export default function Login() {
   }
 
   function authenticate(actualPassword) {
-    if (actualPassword === password) {
-      return true;
-    } else {
-      return false;
-    }
+    return actualPassword === password;
   }
 
   function displayError() {
@@ -70,21 +60,15 @@ export default function Login() {
   }
 
   return (
-    //create UI for login form
-    <div style={{margin:"auto", width:"40%"}} className="loginForm">
-      <img
-        alt="logo"
-        src={logo}
-        className="mx-auto d-block"
-        style={{ width: "130px" }}
-      />
-      <Form style={{ maxWidth: "450px", padding: "30px" }} className="mx-auto d-block border border-2">
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh" }}>
+      <img alt="logo" src={logo} style={{ width: "200px", marginTop:"50px" }} />
+      <Form style={{ maxWidth: "400px", padding: "30px", border: "2px solid #ccc", borderRadius: "8px", backgroundColor: "#fff", boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",marginBottom: "0cm" }}>
         <h1>Login</h1>
-        <p color="#ff0000">{errorMessage}</p>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <p style={{ color: "#ff0000", marginBottom: "15px" }}  >{errorMessage}</p>
+        <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
-            required={true}
+            required
             name="email"
             type="email"
             placeholder="Enter email"
@@ -93,10 +77,10 @@ export default function Login() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            required={true}
+            required
             name="password"
             type="password"
             placeholder="Password"
@@ -105,9 +89,27 @@ export default function Login() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button variant="primary" onClick={handleLogIn}>
-          Login
-        </Button>
+        <Button
+  variant="primary"
+  onClick={handleLogIn}
+  style={{
+    background: "linear-gradient(to right, #3498db, #5bafde)", // Gradient background
+    color: "#fff",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "20px",
+    cursor: "pointer",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    width: "100%",
+    marginTop: "15px",
+    transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+  }}
+  onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+>
+  Login
+</Button>
+
       </Form>
     </div>
   );
