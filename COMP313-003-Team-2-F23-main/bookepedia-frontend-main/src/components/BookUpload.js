@@ -93,7 +93,7 @@ function BookUpload() {
   return (
     <div style={{ margin: "90px", textAlign: "center" }}>
       <img alt="logo" src={logo} className="mx-auto d-block" style={{ width: "130px", marginBottom: "20px" }} />
-      <h1
+      <h3
   className="text-center border border-2"
   style={{
     padding: "10px",
@@ -106,7 +106,7 @@ function BookUpload() {
   onMouseOut={(e) => (e.target.style.backgroundColor = "#0084ab52")} // Restore original color on mouse out
 >
         Upload your book
-      </h1>
+      </h3>
 
       <Form
         encType="multipart/form-data"

@@ -55,7 +55,12 @@ function Home() {
 
 
   return (
-<div style={{ margin: "90px" }}>
+<div  tyle={{
+    margin: "50px",
+    background:"#380979",
+background: "#380979", // Replace with your desired color
+    minHeight: "50vh",
+  }}>
 <br/>
 <div style={{float: 'right'}}>
       <Form.Label htmlFor="sort"   style={{
