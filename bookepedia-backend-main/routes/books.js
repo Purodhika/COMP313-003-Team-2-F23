@@ -78,6 +78,21 @@ router.get('/:_id', async (req, res) => {
 });
 
 
+router.get('/isbn/:isbn', async (req, res) => {
+  const isbn = req.params.isbn;
+  try {
+    const book = await Book.findOne({ isbn: isbn });
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    res.status(200).json([book]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error fetching book data' });
+  }
+});
+
+
 // PUT route to edit a book
 router.post('/edit/:_id', upload.single('image'), async (req, res) => {
   try {
