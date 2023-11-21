@@ -87,8 +87,7 @@ router.get('/isbn/:isbn', async (req, res) => {
     }
     res.status(200).json([book]);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error fetching book data' });
+    res.status(200).json([]);
   }
 });
 
