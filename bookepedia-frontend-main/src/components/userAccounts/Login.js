@@ -34,6 +34,7 @@ export default function Login() {
           setLoggedIn(true);
           setUserType(res.data.userType);
           setUserEmail(res.data.email);
+          accountContext.email= res.data.email
           navigate("/home");
         } else {
           displayError();

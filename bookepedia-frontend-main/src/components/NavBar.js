@@ -119,7 +119,7 @@ function NavBar(props) {
 
             {loggedIn ? (
               <LinkContainer to="account-details">
-                <Nav.Link>My Account</Nav.Link>
+                <Nav.Link>Hello, {accountContext.email} - My Account</Nav.Link>              
               </LinkContainer>
             ) : (
               <div></div>
