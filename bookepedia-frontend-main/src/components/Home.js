@@ -27,15 +27,19 @@ function Home() {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
-      setBooks(response.data);
-      if(response.data.length == 0) alert("Search Returned 0 results")
-      //setBook(response.data);
-      //setError(null);
+      if(`${isbn}`==null||`${isbn}`==""){
+        alert('Please insert ISBN!')
+        return
+      }
+      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/isbn/${isbn}`);
+      //const response = await axios.get(`http://127.0.0.1:3500/book/isbn/${isbn}`);
+      if(response.data.length == 0) {
+        alert('No fetching book data!')
+      }else{
+        setBooks(response.data);
+      }
     } catch (err) {
-      //setBooks([]);
       console.log(err)
-     // setError('Book not found');
     }
   };
 
