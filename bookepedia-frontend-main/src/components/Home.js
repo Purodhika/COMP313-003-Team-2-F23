@@ -65,6 +65,8 @@ function Home() {
       <option value="3">Price - Low to High</option>
       <option value="4">Genre</option>
       <option value="5">Authors</option>
+      <option value="6">Date added - Old to New</option>
+      <option value="7">Date added - New to Old</option>
     </Form.Select>
     </div>
 
