@@ -37,7 +37,7 @@ function Register(props) {
     }
 
     await axios
-      .post("https://bookepedia-qta8.onrender.com/user/register/", userRec)
+      .post("http://127.0.0.1:3500/user/register/", userRec)
       .then((res) => {
         console.log(userRec);
         console.log(res.data.message);
