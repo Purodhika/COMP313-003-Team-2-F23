@@ -54,7 +54,8 @@ function Register(props) {
   };
 
   return (
-    <div style={{ margin: "90px", textAlign: "center" }}>
+    <div style={{ margin: "1px", textAlign: "center",background: "rgb(238,174,202)",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)" }}>
       <img alt="logo" src={logo} className="mx-auto d-block" style={{ width: "200px" }} />
       <Form
         onSubmit={SubmitRec}
@@ -67,8 +68,8 @@ function Register(props) {
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Form.Group className="mb-3">
-          <Form.Label>First Name</Form.Label>
+        <Form.Group className="mb-3" style={{ textAlign: "left" }}>
+          <Form.Label >First Name</Form.Label>
           <Form.Control
             required
             onChange={onchange}
@@ -78,7 +79,7 @@ function Register(props) {
             placeholder="Enter First Name"
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3"style={{ textAlign: "left" }}>
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             required
@@ -90,7 +91,7 @@ function Register(props) {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" style={{ textAlign: "left" }}>
           <Form.Label>Email address</Form.Label>
           <Form.Control
             required
@@ -100,12 +101,12 @@ function Register(props) {
             type="email"
             placeholder="Enter email"
           />
-          <Form.Text className="text-muted">
+          <Form.Text className="text-muted" style={{ textAlign: "left" }}>
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3"style={{ textAlign: "left" }}>
           <Form.Label>Password</Form.Label>
           <Form.Control
             required
@@ -117,7 +118,7 @@ function Register(props) {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3"style={{ textAlign: "left" }}>
           <Form.Label>Re-type Password</Form.Label>
           <Form.Control
             id="pwordRetype"

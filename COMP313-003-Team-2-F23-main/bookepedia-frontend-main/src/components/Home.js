@@ -55,12 +55,17 @@ function Home() {
 
 
   return (
-<div  tyle={{
-    margin: "50px",
-    background:"#380979",
-background: "#380979", // Replace with your desired color
-    minHeight: "50vh",
-  }}>
+<div style={{ 
+margin: "1px",
+background: "rgb(238,174,202)",
+background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+// Replace with your desired color
+minHeight: "100vh",
+
+
+
+
+}}>
 <br/>
 <div style={{float: 'right'}}>
       <Form.Label htmlFor="sort"   style={{
@@ -130,32 +135,44 @@ background: "#380979", // Replace with your desired color
 
     </div>
 
-    <input type="text" placeholder="ISBN"  value={isbn} onChange={(e) => setIsbn(e.target.value)} style={{
-    padding: "6px",
-    border: "1px solid #ddd", // Light grey border
-    borderRadius: "20px", // Slightly rounded corners
-    background: "#f8f8f8", // Light grey background
-    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-    transition: "box-shadow 0.3s",
-    marginRight: "5px",
-  }}
-  onFocus={(e) => (e.target.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)")}
-  onBlur={(e) => (e.target.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)")}
-/>
-      <button onClick={handleSearch}   style={{
-                  background: "#E76F51",
-                  color: "#fff",
-                  margin:"5px",
-                  padding: "5px 15px",
-                  border: "none",
-                  borderRadius: "20px", // Adjusted for round edges
-                  cursor: "pointer",
-                  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                  transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
-                }}
-                onMouseOver={(e) => (e.target.style.background = "#FFA726")}
-                onMouseOut={(e) => (e.target.style.background = "#E76F51")}
-              >Search</button>
+    <div style={{ display: "flex",justifyContent: "center", alignItems: "center" }}>
+  <input
+    type="text"
+    placeholder="Search your book"
+    value={isbn}
+    onChange={(e) => setIsbn(e.target.value)}
+    style={{
+      padding: "6px",
+      border: "1px solid #ddd",
+      borderRadius: "20px",
+      background: "#f8f8f8",
+      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+      transition: "box-shadow 0.3s",
+      width: "10cm",
+    }}
+    onFocus={(e) => (e.target.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)")}
+    onBlur={(e) => (e.target.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)")}
+  />
+  <button
+    onClick={handleSearch}
+    style={{
+      background: "#E76F51",
+      color: "#fff",
+      margin: "5px",
+      padding: "5px 15px",
+      border: "none",
+      borderRadius: "20px",
+      cursor: "pointer",
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+    }}
+    onMouseOver={(e) => (e.target.style.background = "#FFA726")}
+    onMouseOut={(e) => (e.target.style.background = "#E76F51")}
+  >
+    Search
+  </button>
+</div>
+
       <br/><br/>
 
 

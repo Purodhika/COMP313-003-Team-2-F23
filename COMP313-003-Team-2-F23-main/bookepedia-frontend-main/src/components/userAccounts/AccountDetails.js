@@ -60,15 +60,28 @@ export default function AccountDetails() {
   }
 
   return (
-    <div style={{margin:"auto", width:"40%"}}>
-      <img
-        alt="logo"
-        src={logo}
-        className="mx-auto d-block"
-        style={{ width: "130px" }}
-      />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "1px",
+        background:
+          "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+        minHeight: "100vh",
+      }}
+    >
+      <img alt="logo" src={logo} className="mx-auto d-block" style={{ width: "130px" }} />
       <h1>Account Details</h1>
-      <Form onSubmit={handleSubmit}>
+      <Form
+        style={{
+          maxWidth: "400px", // Adjust the width as needed
+          width: "100%",
+          textAlign: "center", // Center the content horizontally
+        }}
+        onSubmit={handleSubmit}
+      >
         <Form.Group className="mb-3" controlId="first-name">
           <Form.Label>First Name</Form.Label>
           <Form.Control
@@ -76,9 +89,10 @@ export default function AccountDetails() {
             value={firstName}
             name="first-name"
             onChange={handleChange}
+            style={{ borderRadius: "10px" }} // Adjust the border radius as needed
           />
         </Form.Group>
-
+  
         <Form.Group className="mb-3" controlId="last-name">
           <Form.Label>Last Name</Form.Label>
           <Form.Control
@@ -86,12 +100,31 @@ export default function AccountDetails() {
             value={lastName}
             name="last-name"
             onChange={handleChange}
+            style={{ borderRadius: "10px" }} // Adjust the border radius as needed
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button
+          variant="primary"
+          type="submit"
+          style={{
+            background: "linear-gradient(to right, #3498db, #5bafde)",
+            color: "#fff",
+            padding: "10px 20px",
+            margin: "20px 10px", // Adjusted margin
+            border: "none",
+            borderRadius: "20px",
+            cursor: "pointer",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+          }}
+          onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+          onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+        >
           Save
         </Button>
       </Form>
     </div>
   );
+  
+  
 }

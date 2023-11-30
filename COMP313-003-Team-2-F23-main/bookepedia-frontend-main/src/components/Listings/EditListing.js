@@ -105,11 +105,17 @@ function EditListing() {
   }, [bookRec.image]);
   return (
     
-    <div style={{margin:"90px"}}>
+    <div style={{ margin: "90px", textAlign: "center" }}>
    
       <h1
         className="text-center border border-2"
-        style={{ padding: "10px", background: "#0084ab52" }}
+        style={{
+          padding: "10px",
+          background: "#3498db",
+          color: "#fff",
+          borderRadius: "10px",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
       >
         Book Update
       </h1>
@@ -118,8 +124,16 @@ function EditListing() {
       <Form
         encType="multipart/form-data"
         onSubmit={SubmitRec}
-        style={{ padding: "30px" }}
+        style={{
+          padding: "30px",
+          maxWidth: "600px",
+          margin: "auto",
+          border: "1px solid #ddd",
+          borderRadius: "15px",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
         className="mx-auto d-block border border-2"
+        
       >
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Title</Form.Label>
@@ -254,7 +268,16 @@ function EditListing() {
         </Form.Group>
 
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary"
+        type="submit"
+        style={{
+          backgroundColor: "#3498db",
+          color: "#fff",
+          padding: "10px 20px",
+          borderRadius: "20px",
+          cursor: "pointer",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+          transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",}}>
           Update Book
         </Button>
       </Form>

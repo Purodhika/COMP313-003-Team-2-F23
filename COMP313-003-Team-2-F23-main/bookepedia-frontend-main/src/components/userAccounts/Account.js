@@ -20,18 +20,43 @@ export default function Account({ user }) {
   }
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "18rem", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}>
       <Card.Body>
-        <Card.Title>
-          {user.fname} {user.lname} - {user.userType}
+        <Card.Title style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "5px" }}>
+          {user.fname} {user.lname}
         </Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{user.email}</Card.Subtitle>
-        <Button variant="primary" value={user.email} onClick={handleEdit}>
-          Edit
-        </Button>
-        <Button variant="danger" onClick={deleteRecord}>
-          Delete
-        </Button>
+        <Card.Subtitle className="mb-2 text-muted">{user.userType}</Card.Subtitle>
+        <Card.Text>{user.email}</Card.Text>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+          <Button
+            variant="primary"
+            onClick={handleEdit}
+            style={{
+              backgroundColor: "#3498db",
+              color: "#fff",
+              padding: "8px 15px",
+              borderRadius: "20px",
+              cursor: "pointer",
+              transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="danger"
+            onClick={deleteRecord}
+            style={{
+              backgroundColor: "#e74c3c",
+              color: "#fff",
+              padding: "8px 15px",
+              borderRadius: "20px",
+              cursor: "pointer",
+              transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+            }}
+          >
+            Delete
+          </Button>
+        </div>
       </Card.Body>
     </Card>
   );

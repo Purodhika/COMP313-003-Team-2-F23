@@ -19,12 +19,6 @@ export default function AccountList() {
       });
   }, []);
 
-  return (
-    <div>
-      <h1>All Accounts</h1>
-      {allAccounts.map((account) => (
-        <Account key={account._id} user={account} />
-      ))}
-    </div>
-  );
+  
+  
 }

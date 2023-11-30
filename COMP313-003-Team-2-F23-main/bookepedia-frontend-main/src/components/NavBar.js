@@ -28,12 +28,16 @@ function NavBar() {
       variant="dark"
       expand="lg"
       style={{
-        background: "linear-gradient(to right, #2980B9, #87CEFA, #00BFFF)",
+       
+        background: "rgb(238,174,202)",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+     // Replace with your desired color
+   
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
       }}
     >
       <Container fluid>
-        <Navbar.Brand>
+       <Navbar.Brand>
           <LinkContainer to="home">
             <img
               alt="logo"

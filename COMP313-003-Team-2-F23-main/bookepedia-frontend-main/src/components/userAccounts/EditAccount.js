@@ -72,7 +72,17 @@ export default function EditAccount() {
   }
 
   return (
-    <div>
+    <div style={{ 
+      margin: "1px",
+      background: "rgb(238,174,202)",
+      background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+      // Replace with your desired color
+      minHeight: "100vh",
+      
+      
+      
+      
+      }}>
       <h1>Edit Account</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="first-name">
