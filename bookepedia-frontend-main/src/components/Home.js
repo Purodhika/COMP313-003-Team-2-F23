@@ -70,6 +70,7 @@ function Home() {
       <option value="5">Authors</option>
       <option value="6">Date added - Old to New</option>
       <option value="7">Date added - New to Old</option>
+      <option value="8">Condition</option>
     </Form.Select>
     </div>
 

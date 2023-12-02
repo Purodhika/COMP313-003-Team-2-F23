@@ -198,6 +198,9 @@ router.get("/sort/:sort", async (req, res) => {
     }else if (sortOrder == 7) {
       console.log(sortOrder)
        books = await Book.find().sort({price: -1});
+    }else if (sortOrder == 8) {
+      console.log(sortOrder)
+       books = await Book.find().sort({condition: 1});
     }
     
     res.json(books);
