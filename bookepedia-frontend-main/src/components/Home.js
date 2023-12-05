@@ -27,29 +27,22 @@ function Home() {
 
   const handleSearch = async () => {
     try {
-      if(`${isbn}`==null||`${isbn}`==""){
-        alert('Please insert ISBN!')
-        return
-      }
-      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/isbn/${isbn}`);
-      //const response = await axios.get(`http://127.0.0.1:3500/book/isbn/${isbn}`);
-      if(response.data.length == 0) {
-        alert('No fetching book data!')
-      }else{
-        setBooks(response.data);
-      }
+      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
+      setBooks(response.data);
+      if(response.data.length == 0) alert("Search Returned 0 results")
+      //setBook(response.data);
+      //setError(null);
     } catch (err) {
+      //setBooks([]);
       console.log(err)
+     // setError('Book not found');
     }
   };
 
   const sortBooks = async (sortOrder) => {
     try {
       const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
-      //const response = await axios.get(`http://127.0.0.1:3500/book/sort/${sortOrder}`);
       setBooks(response.data);
-      console.log(sortOrder);
-      console.log(response.data);
       //if(response.data.length == 0) alert("Search Returned 0 results")
       //setBook(response.data);
       //setError(null);
@@ -62,86 +55,231 @@ function Home() {
 
 
   return (
-<div style={{ margin: "90px" }}>
+<div style={{ 
+margin: "1px",
+background: "rgb(238,174,202)",
+background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+// Replace with your desired color
+minHeight: "100vh",
+
+
+
+
+}}>
 <br/>
 <div style={{float: 'right'}}>
-      <Form.Label htmlFor="sort">Sort By</Form.Label>
-      <Form.Select value={sort} onChange={(e) => {setSort(e.target.value); sortBooks(e.target.value); }} id="sort" aria-label="Default select example" style={{display:"inline-block", width:"200px"}}>      
-      <option value="1">Popularity/Newest</option>
-      <option value="2">Price - High to Low</option>
-      <option value="3">Price - Low to High</option>
-      <option value="4">Genre</option>
-      <option value="5">Authors</option>
-      <option value="6">Date added - Old to New</option>
-      <option value="7">Date added - New to Old</option>
-      <option value="8">Condition</option>
-    </Form.Select>
+      <Form.Label htmlFor="sort"   style={{
+    fontSize: "15px", // Adjust font size
+    fontWeight: "bold", // Bold text
+    color: "#333", // Dark grey text color
+    margin: "10px", // Add some bottom margin
+    //display: "block", // Make sure it's a block element
+  }}>Sort By</Form.Label>
+      <Form.Select
+  value={sort}
+  onChange={(e) => {
+    setSort(e.target.value);
+    sortBooks(e.target.value);
+  }}
+  id="sort"
+  aria-label="Default select example"
+  style={{
+    display: "inline-block",
+    width: "200px",
+    padding: "10px", // Add padding for a more comfortable feel
+    borderRadius: "8px", // Add rounded corners
+    border: "2px solid #555", // Add a dark border
+    backgroundColor: "#fff", // White background
+    color: "#333", // Dark grey text color
+    fontWeight: "bold", // Bold text
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add a subtle shadow
+    transition: "border-color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s", // Add transitions
+  }}
+>
+  <option value="1"   style={{
+      padding: "10px",
+      backgroundColor: "#ECF0F1", // Light gray background
+      color: "#3498DB", // Cool blue text color
+      borderRadius: "8px",
+      fontWeight: "bold",
+    }}>Popularity/Newest</option>
+  <option value="2"   style={{
+      padding: "10px",
+      backgroundColor: "#D6EAF8", // Light blue background
+      color: "#3498DB", // Cool blue text color
+      borderRadius: "8px",
+      fontWeight: "bold",
+    }}>Price - High to Low</option>
+  <option value="3"  style={{
+      padding: "10px",
+      backgroundColor: "#A9CCE3", // Sky blue background
+      color: "#3498DB", // Cool blue text color
+      borderRadius: "8px",
+      fontWeight: "bold",
+    }}>Price - Low to High</option>
+  <option value="4"  style={{
+      padding: "10px",
+      backgroundColor: "#5DADE2", // Dodger blue background
+      color: "#fff", // White text color for contrast
+      borderRadius: "8px",
+      fontWeight: "bold",
+    }}>Genre</option>
+  <option value="5"  style={{
+      padding: "10px",
+      backgroundColor: "#3498DB", // Cool blue background
+      color: "#fff", // White text color for contrast
+      borderRadius: "8px",
+      fontWeight: "bold",
+    }} >Authors</option>
+</Form.Select>
+
     </div>
 
-    <input type="text" placeholder="ISBN"  value={isbn} onChange={(e) => setIsbn(e.target.value)}/>
-      <button onClick={handleSearch}>Search</button>
+    <div style={{ display: "flex",justifyContent: "center", alignItems: "center" }}>
+  <input
+    type="text"
+    placeholder="Search your book"
+    value={isbn}
+    onChange={(e) => setIsbn(e.target.value)}
+    style={{
+      padding: "6px",
+      border: "1px solid #ddd",
+      borderRadius: "20px",
+      background: "#f8f8f8",
+      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+      transition: "box-shadow 0.3s",
+      width: "10cm",
+    }}
+    onFocus={(e) => (e.target.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)")}
+    onBlur={(e) => (e.target.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)")}
+  />
+  <button
+    onClick={handleSearch}
+    style={{
+      background: "#E76F51",
+      color: "#fff",
+      margin: "5px",
+      padding: "5px 15px",
+      border: "none",
+      borderRadius: "20px",
+      cursor: "pointer",
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+    }}
+    onMouseOver={(e) => (e.target.style.background = "#FFA726")}
+    onMouseOut={(e) => (e.target.style.background = "#E76F51")}
+  >
+    Search
+  </button>
+</div>
+
       <br/><br/>
 
 
-    <CardGroup>
-      {books.map((book, index) => (
-        <Card
-          key={book._id}
+      <CardGroup>
+  {books.map((book, index) => (
+    <Card
+      key={book._id}
+      style={{
+        margin: "15px",
+        border: "1px solid #ddd",
+        borderRadius: "15px",
+        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+        minWidth: "250px",
+        maxWidth: "400px",
+        transition: "transform 0.3s ease-in-out",
+      }}
+      className="hover-scale-card" // Added a class for hover effect
+    >
+      <Card.Img
+        variant="top"
+        style={{
+          width: "100%",
+          maxHeight: "200px",
+          objectFit: "cover",
+          borderBottom: "1px solid #ddd",
+          borderTopLeftRadius: "15px",
+          borderTopRightRadius: "15px",
+        }}
+        src={
+          "https://bookepedia-qta8.onrender.com/BookImagesUploaded/" +
+          book.image
+        }
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src =
+            "https://bookepedia-qta8.onrender.com/BookImagesUploaded/noImage.png";
+        }}
+      />
+      <Card.Body>
+        <Card.Title style={{ textAlign: "center", fontWeight: "bold", color: "#333" }}>
+          {book.title}
+        </Card.Title>
+        <i style={{ textAlign: "center", display: "block", color: "#555" }}>
+          by {book.authors}
+        </i>
+        <p style={{ marginBottom: "10px", color: "#777" }}>
+          <strong>Condition:</strong> {book.condition}
+        </p>
+        <Card.Text style={{ color: "#333" }}>{book.description}</Card.Text>
+        <Button
+          variant="primary"
+          onClick={() => navigate("/book-details/" + book._id)}
           style={{
-            margin: "15px",
-            border: "1px solid black",
-            borderRadius: "0px",
-            minWidth: "250px",
-            maxWidth: '400px'
+            background: "#3498db",
+            color: "#fff",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "20px",
+            cursor: "pointer",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
           }}
+          onMouseOver={(e) => (e.target.style.background = "#2980b9")}
+          onMouseOut={(e) => (e.target.style.background = "#3498db")}
         >
-          <Card.Img
-            variant="top"
+          Price: ${book.price.toFixed(2)}
+        </Button>
+        {'         '}
+        {book.sold ? (
+          <Button
+            variant="danger"
             style={{
-              width: "100%",
-
-              maxHeight: "200px",
-              objectFit: "contain",
-              borderBottom: "1px solid black",
+              background: "#e74c3c",
+              color: "#fff",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "20px",
+              cursor: "pointer",
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
             }}
-            src={"https://bookepedia-qta8.onrender.com/BookImagesUploaded/" + book.image}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src="https://bookepedia-qta8.onrender.com/BookImagesUploaded/noImage.png";}}
-          />
-          <Card.Body>
-            <Card.Title style={{ textAlign: "center" }}>
-              {book.title}
-            </Card.Title>
-            <i style={{ textAlign: "center", display: "block" }}>
-              by {book.authors}
-            </i>
-            <p>Condition: {book.condition}</p>
-            <hr/>
-            <Card.Text>{book.description}</Card.Text>
-            <hr/>
-            <Button variant="primary" onClick={() => navigate('/book-details/' + book._id)}>Price: ${book.price.toFixed(2)}</Button>
-            
-            {'         '}
-            {book.sold ? (<Button variant="danger">SOLD</Button>) : (<span></span>)}
-            
-            
-            
-            <br/>
-            <small className="text-muted">Book viewed {book.views} times</small>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">
-              Genre: {book.genre} <br/>
-              ISBN: {book.isbn} <br />
-              Sold by: {book.sellerEmail} <br/>
-              Date Added: {new Date(book.dateAdded).toLocaleString("en-CA")}<br/>
-              
-            </small>
-          </Card.Footer>
-        </Card>
-      ))}
-    </CardGroup>
+            onMouseOver={(e) => (e.target.style.background = "#c0392b")}
+            onMouseOut={(e) => (e.target.style.background = "#e74c3c")}
+          >
+            SOLD
+          </Button>
+        ) : (
+          <span></span>
+        )}
+        <br />
+        <small className="text-muted">Book viewed {book.views} times</small>
+      </Card.Body>
+      <Card.Footer style={{ borderTop: "1px solid #ddd", borderRadius: "15px", backgroundColor: "#f8f8f8" }}>
+        <small style={{ color: "#555" }}>
+          <strong>Genre:</strong> {book.genre} <br />
+          <strong>ISBN:</strong> {book.isbn} <br />
+          <strong>Sold by:</strong> {book.sellerEmail} <br />
+          <strong>Date Added:</strong>{" "}
+          {new Date(book.dateAdded).toLocaleString("en-CA")}{" "}
+          <br />
+        </small>
+      </Card.Footer>
+    </Card>
+  ))}
+</CardGroup>;
+
+
 
     </div>
   );
