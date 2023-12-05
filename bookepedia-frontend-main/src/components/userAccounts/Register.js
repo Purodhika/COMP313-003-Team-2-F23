@@ -13,6 +13,7 @@ function Register(props) {
     lname: "",
     email: "",
     password: "",
+    userType: "USER",
   });
 
   let navigate = useNavigate();
@@ -24,6 +25,7 @@ function Register(props) {
   const SubmitRec = async (e) => {
     e.preventDefault();
     console.log(userRec);
+    console.log("Submitting with userType:", userRec.userType);
 
     let pwordRetype = document.getElementById("pwordRetype").value;
 
@@ -37,14 +39,14 @@ function Register(props) {
     await axios
       .post("https://bookepedia-qta8.onrender.com/user/register/", userRec)
       .then((res) => {
-        
+        console.log(userRec);
         console.log(res.data.message);
         console.log("success");
-        if(res.data.message == "exists"){
+        if(res.data.message === "exists"){
           alert(`An account with the email ${userRec.email} already exists`);
         }else{
           alert(`Thank you ${userRec.fname}, your account has been created`);
-          navigate("/");
+          //navigate("/");
         }
         
       })
@@ -52,6 +54,7 @@ function Register(props) {
         console.log(err);
         alert("Please try again, an error occurred");
       });
+      navigate("/");
   };
 
   return (
@@ -62,7 +65,7 @@ function Register(props) {
         style={{ maxWidth: "450px", padding: "30px" }}
         className="mx-auto d-block border border-2"
       >
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicFistname">
           <Form.Label>First Name</Form.Label>
           <Form.Control
             required
@@ -73,7 +76,7 @@ function Register(props) {
             placeholder="Enter First Name"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicLastname">
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             required
@@ -112,7 +115,7 @@ function Register(props) {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPasswordRetype">
           <Form.Label>Re-type Password</Form.Label>
           <Form.Control
             id="pwordRetype"
@@ -120,6 +123,22 @@ function Register(props) {
             type="password"
             placeholder="Password"
           />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicUserType">
+          <Form.Label>Account Type</Form.Label>
+          <Form.Control
+            required
+            as="select"
+            name="userType"
+            type="text"
+            value={userRec.userType}
+            onChange={onchange}
+          >
+            <option value="USER">USER</option>
+            <option value="DELIVERY">DELIVERY</option>            
+            {/* <option value="ADMIN">ADMIN</option> */}
+          </Form.Control>
         </Form.Group>
 
         <Button variant="primary" type="submit">

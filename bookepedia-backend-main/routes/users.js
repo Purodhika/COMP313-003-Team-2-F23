@@ -5,27 +5,28 @@ const Book = require("../models/book.js")
 
 //Creating one user
 router.post("/register/", async (req, res) => {
-  const user = new User({
-    fname: req.body.fname,
-    lname: req.body.lname,
-    email: req.body.email,
-    password: req.body.password,
-    userType: "USER",
-  });
-  console.log(user);
+  const { fname, lname, email, password, userType } = req.body;
+  console.log(req.body);
   try {
 
-    //let exists = 'ss'
-    let exists = await User.findOne({ email: user.email});
-    if (exists == null) {
-      const newUser = await user.save();
-      res.status(201).json({message:'success'});
-    }
-    else {
-      res.status(201).json({message:'exists'});
+    const exists = await User.findOne({ email });
+
+    if (exists) {
+      return res.status(201).json({ message: 'exists' });
     }
 
+    const newUser = new User({
+      fname,
+      lname,
+      email,
+      password,
+      userType,
+    });
 
+    // Save the user to the database
+    await newUser.save();
+    
+    return res.status(201).json({ message: 'success' });
     
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -68,6 +69,10 @@ router.patch("/:email", getUserByEmail, async (req, res) => {
 
   if (req.body.password != null) {
     res.user.password = req.body.password;
+  }
+
+  if (req.body.userType != null) {
+    res.user.userType = req.body.userType;
   }
 
   try {

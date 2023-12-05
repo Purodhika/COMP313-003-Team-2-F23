@@ -46,7 +46,10 @@ function Home() {
   const sortBooks = async (sortOrder) => {
     try {
       const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
+      //const response = await axios.get(`http://127.0.0.1:3500/book/sort/${sortOrder}`);
       setBooks(response.data);
+      console.log(sortOrder);
+      console.log(response.data);
       //if(response.data.length == 0) alert("Search Returned 0 results")
       //setBook(response.data);
       //setError(null);
@@ -69,6 +72,9 @@ function Home() {
       <option value="3">Price - Low to High</option>
       <option value="4">Genre</option>
       <option value="5">Authors</option>
+      <option value="6">Date added - Old to New</option>
+      <option value="7">Date added - New to Old</option>
+      <option value="8">Condition</option>
     </Form.Select>
     </div>
 
