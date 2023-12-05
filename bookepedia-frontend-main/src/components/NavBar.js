@@ -8,11 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 import React from "react";
 import accountContext from "./userAccounts/accountContext";
-//import NavDropdown from "react-bootstrap/NavDropdown";
-
 import logo from "./media/bookepedia.gif";
 
-function NavBar(props) {
+function NavBar() {
   let navigate = useNavigate();
   const { loggedIn, setLoggedIn, userType, setUserType, setUserEmail } =
     React.useContext(accountContext);
@@ -29,16 +27,24 @@ function NavBar(props) {
       fixed="top"
       variant="dark"
       expand="lg"
-      style={{ background: "#0047a9" }}
+      style={{
+       
+        background: "rgb(238,174,202)",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+     // Replace with your desired color
+   
+        boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+      }}
     >
       <Container fluid>
-        <Navbar.Brand>
+       <Navbar.Brand>
           <LinkContainer to="home">
             <img
               alt="logo"
               src={logo}
               width="75"
               className="d-inline-block align-top"
+              style={{ background: "#008000" }}
             />
           </LinkContainer>
         </Navbar.Brand>
@@ -51,18 +57,22 @@ function NavBar(props) {
             navbarScroll
           >
             <LinkContainer to="home">
-              <Nav.Link>Home</Nav.Link>
+              <Nav.Link style={{ transition: "color 0.3s" }}
+                onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Home</Nav.Link>
             </LinkContainer>
             {userType === "ADMIN" && loggedIn ? (
               <LinkContainer to="listings">
-                <Nav.Link>All Listings</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>All Listings</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
             )}
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="listings">
-                <Nav.Link>Your Listings</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Your Listings</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -70,13 +80,13 @@ function NavBar(props) {
 
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="your-orders">
-                <Nav.Link>Your Orders</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Your Orders</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
             )}
           </Nav>
-          {/*<Nav.Link href="#">Link</Nav.Link>*/}
 
           <Nav>
             <Form className="d-flex">
@@ -86,12 +96,29 @@ function NavBar(props) {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="success">Search</Button>
+              <Button
+                variant="success"
+                style={{
+                  background: "#E76F51",
+                  color: "#fff",
+                  padding: "10px 20px",
+                  border: "none",
+                  borderRadius: "20px", // Adjusted for round edges
+                  cursor: "pointer",
+                  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                  transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+                }}
+                onMouseOver={(e) => (e.target.style.background = "#FFA726")}
+                onMouseOut={(e) => (e.target.style.background = "#E76F51")}
+              >
+                Search
+              </Button>
             </Form>
 
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="upload">
-                <Nav.Link>Add Book +</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Add Book +</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -99,7 +126,8 @@ function NavBar(props) {
 
             {userType === "ADMIN" ? (
               <LinkContainer to="/all-accounts">
-                <Nav.Link>Accounts</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Accounts</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -107,19 +135,18 @@ function NavBar(props) {
 
             {userType === "DELIVERY" ? (
               <LinkContainer to="/order-list">
-                <Nav.Link>Orders</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Orders</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
             )}
 
-            {/* 
-              Adding conditional rendering depending if user is logged in
-            */}
-
             {loggedIn ? (
               <LinkContainer to="account-details">
-                <Nav.Link>Hello, {accountContext.email} - My Account</Nav.Link>              
+                <Nav.Link style={{ transition: "color 0.3s" }}
+                onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>My Account</Nav.Link>
               </LinkContainer>
             ) : (
               <div></div>
@@ -129,15 +156,24 @@ function NavBar(props) {
               <div></div>
             ) : (
               <LinkContainer to="register">
-                <Nav.Link>Register</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}
+                  onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+                >Register</Nav.Link>
               </LinkContainer>
             )}
 
             {loggedIn ? (
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              <Nav.Link onClick={handleLogout} style={{ transition: "color 0.3s" }}
+              onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+              onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>
+                Logout
+              </Nav.Link>
             ) : (
               <LinkContainer to="login">
-                <Nav.Link>Login</Nav.Link>
+                <Nav.Link style={{ transition: "color 0.3s" }}
+                  onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Login</Nav.Link>
               </LinkContainer>
             )}
           </Nav>
