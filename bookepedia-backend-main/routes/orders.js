@@ -44,6 +44,13 @@ router.get("/user-orders/:buyerEmail", async (req, res) => {
 
 //Creating one order
 router.post("/add-order", async (req, res) => {
+  //try to match the buyer's email and seller's email if match,reject to byt
+  if(req.body.buyerEmail == req.body.sellerEmail){
+    res.status(202).json({ message: "Book owner couldn't buy their books"});
+    return
+  }
+  
+
   const order = new Order({
     bookId: req.body.bookId,
     buyerEmail: req.body.buyerEmail,

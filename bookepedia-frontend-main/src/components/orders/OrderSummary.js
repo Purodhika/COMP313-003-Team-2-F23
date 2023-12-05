@@ -34,6 +34,12 @@ export default function OrderSummary() {
 
   function handlePurchase() {
     //create order object
+    //try math the user email and seller's email
+    if(userEmail == book.sellerEmail){
+      alert("Same user! User Can not buy their own books");
+      return;
+    }
+
     var bodyData = {
       bookId: _id,
       buyerEmail: userEmail,
@@ -49,6 +55,10 @@ export default function OrderSummary() {
         console.log(res.status);
         if (res.status === 201) {
           alert(`Order successful`);
+          navigate("/");
+        }
+        if (res.status === 202) {
+          alert(res.message);
           navigate("/");
         } else {
           alert(`Sorry, an error ocurred. Please try again later.`);
