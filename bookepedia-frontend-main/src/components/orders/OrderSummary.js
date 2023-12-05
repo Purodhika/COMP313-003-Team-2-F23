@@ -6,10 +6,9 @@ import Button from "react-bootstrap/Button";
 import accountContext from "../userAccounts/accountContext";
 
 export default function OrderSummary() {
-  const [paymentValidated, setPaymentValidated] = useState(false);
   const [book, setBook] = useState({});
   const [seller, setSeller] = useState({});
-  const { _id, conditionVerification } = useParams();
+  const { _id } = useParams();
   let navigate = useNavigate();
 
   const { loggedIn, userEmail } = React.useContext(accountContext);
@@ -40,7 +39,8 @@ export default function OrderSummary() {
       sellerEmail: book.sellerEmail,
       isbn: book.isbn,
       price: book.price,
-      conditionVerification:  conditionVerification ? "Yes" : "No"
+      // conditionVerification:  conditionVerification ? "Yes" : "No"
+      conditionVerification: "Yes"
     };
 
     axios
@@ -63,7 +63,7 @@ export default function OrderSummary() {
 
   return (
     <div>
-      {paymentValidated ? (
+     
         <div>
           <h1>Order Summary</h1>
           <p>
@@ -83,11 +83,7 @@ export default function OrderSummary() {
             Cancel
           </Button>
         </div>
-      ) : (
-        <div>
-          <CardInfo setPaymentValidated={setPaymentValidated} />
-        </div>
-      )}
+     
     </div>
   );
 }
