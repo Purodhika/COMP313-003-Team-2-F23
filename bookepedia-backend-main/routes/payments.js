@@ -19,8 +19,8 @@ router.post("/", async (req, res) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: `http://localhost:3000/home`,
-    cancel_url: `http://localhost:3000/home`
+    success_url: `https://bookepedia-client.onrender.com/home`,
+    cancel_url: `https://bookepedia-client.onrender.com/home`
   });
 
 

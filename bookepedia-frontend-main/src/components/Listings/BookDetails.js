@@ -45,7 +45,7 @@ export default function BookDetails() {
     const headers = {
       "Content-Type": "application/json",
     };
-    const response = await fetch("https://bookepedia-qta8.onrender.com/payment", {
+    const response = await fetch(`https://bookepedia-qta8.onrender.com/payment`, {
       method: "POST",
       headers: headers,
       body: JSON.stringify(body),
