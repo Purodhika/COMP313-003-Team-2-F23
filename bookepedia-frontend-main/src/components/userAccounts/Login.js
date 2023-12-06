@@ -3,18 +3,26 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import accountContext from "./accountContext";
 
-// css
+//css
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+
+import logo from "../media/bookepedia.gif";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { setLoggedIn, setUserType, setUserEmail } = React.useContext(accountContext);
+  const { setLoggedIn, setUserType, setUserEmail } =
+    React.useContext(accountContext);
 
   let navigate = useNavigate();
+
+  //connect with database
+  //find by id via emailfield
+  //check password with corresponding value
+  //if successful, update accountContext
 
   function handleLogIn(event) {
     event.preventDefault();
@@ -26,6 +34,7 @@ export default function Login() {
           setLoggedIn(true);
           setUserType(res.data.userType);
           setUserEmail(res.data.email);
+          accountContext.email= res.data.email
           navigate("/home");
         } else {
           displayError();
@@ -37,13 +46,12 @@ export default function Login() {
   }
 
   function handleChange(event) {
-    const { name, value } = event.target;
-    switch (name) {
+    switch (event.target.name) {
       case "email":
-        setEmail(value);
+        setEmail(event.target.value);
         break;
       case "password":
-        setPassword(value);
+        setPassword(event.target.value);
         break;
       default:
         break;
@@ -51,7 +59,11 @@ export default function Login() {
   }
 
   function authenticate(actualPassword) {
-    return actualPassword === password;
+    if (actualPassword === password) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function displayError() {
@@ -59,35 +71,21 @@ export default function Login() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "rgb(238,174,202)",
-        background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
-        minHeight: "100vh" // Set minimum height to cover the entire viewport
-      }}
-    >
-      <Form
-        style={{
-          maxWidth: "400px",
-          padding: "30px",
-          border: "1px solid #ccc",
-          borderRadius: "8px",
-        
-          
-          
-          // Replace with your desired color
-        }}
-      >
-        <h1 style={{ textAlign: "center" }}>Login</h1>
-        <p style={{ color: "#ff0000", marginBottom: "15px" }}>{errorMessage}</p>
-        <Form.Group controlId="formBasicEmail">
+    //create UI for login form
+    <div style={{margin:"auto", width:"40%"}} className="loginForm">
+      <img
+        alt="logo"
+        src={logo}
+        className="mx-auto d-block"
+        style={{ width: "130px" }}
+      />
+      <Form style={{ maxWidth: "450px", padding: "30px" }} className="mx-auto d-block border border-2">
+        <h1>Login</h1>
+        <p color="#ff0000">{errorMessage}</p>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
-            required
+            required={true}
             name="email"
             type="email"
             placeholder="Enter email"
@@ -96,10 +94,10 @@ export default function Login() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            required
+            required={true}
             name="password"
             type="password"
             placeholder="Password"
@@ -108,24 +106,7 @@ export default function Login() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button
-          variant="primary"
-          onClick={handleLogIn}
-          style={{
-            background: "linear-gradient(to right, #3498db, #5bafde)", // Gradient background
-            color: "#fff",
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "20px",
-            cursor: "pointer",
-            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-            width: "100%",
-            marginTop: "15px",
-            transition: "background 0.3s, transform 0.3s, box-shadow 0.3s"
-          }}
-          onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
-          onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
-        >
+        <Button variant="primary" onClick={handleLogIn}>
           Login
         </Button>
       </Form>
