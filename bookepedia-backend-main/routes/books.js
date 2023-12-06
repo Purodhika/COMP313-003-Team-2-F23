@@ -114,15 +114,15 @@ router.delete("/:isbn", getBookByIsbn, async (req, res) => {
   }
 });
 
-router.delete("/:title", getBookByTitle, async (req, res) => {
-  try {
-    await res.book.deleteOne();
-    console.log(res.book)
-    res.json({ message: "Deleted Book" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// router.delete("/:title", getBookByTitle, async (req, res) => {
+//   try {
+//     await res.book.deleteOne();
+//     console.log(res.book)
+//     res.json({ message: "Deleted Book" });
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
 
 
 router.delete("/delete/:id", async (req, res) => {
@@ -146,15 +146,15 @@ router.get("/:isbn", async (req, res) => {
   
 });
 
-router.get("/:title", async (req, res) => { 
-  try {
-    const books = await Book.find({ title: req.params.title }).sort({views: -1, dateAdded: -1});
-    res.json(books);
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  } 
+// router.get("/:title", async (req, res) => { 
+//   try {
+//     const books = await Book.find({ title: req.params.title }).sort({views: -1, dateAdded: -1});
+//     res.json(books);
+//   } catch (err) {
+//     return res.status(500).json({ message: err.message });
+//   } 
   
-});
+// });
 
 
 router.get("/details/:_id", async (req, res) => { 
@@ -230,21 +230,21 @@ async function getBookByIsbn(req, res, next) {
   next();
 }
 
-async function getBookByTitle(req, res, next) {
-  let book;
-  try {
-    book = await Book.findOne({ title: req.params.title });
-    if (book == null) {
-      return res
-        .status(404)
-        .json({ message: "Cannot find book title " + req.params.title });
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
+// async function getBookByTitle(req, res, next) {
+//   let book;
+//   try {
+//     book = await Book.findOne({ title: req.params.title });
+//     if (book == null) {
+//       return res
+//         .status(404)
+//         .json({ message: "Cannot find book title " + req.params.title });
+//     }
+//   } catch (err) {
+//     return res.status(500).json({ message: err.message });
+//   }
   
-  res.book = book;
-  next();
-}
+//   res.book = book;
+//   next();
+// }
 
 module.exports = router;
