@@ -63,13 +63,40 @@ export default function BookDetails() {
             <Button
               variant="primary"
               onClick={() => navigate("/book-details/" + book._id)}
+              style={{
+                background: "#3498db", // Bluish color
+                color: "#fff",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "20px", // Adjusted for round edges
+                cursor: "pointer",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+              }}
+              onMouseOver={(e) => (e.target.style.background = "#2980b9")} // Lighter bluish color on hover
+              onMouseOut={(e) => (e.target.style.background = "#3498db")}
             >
+            
+              
+            
               Price: ${book.price.toFixed(2)}
             </Button>
 
             {"         "}
             {book.sold ? (
-              <Button variant="danger">SOLD</Button>
+               <Button variant="danger"   style={{
+                background: "#e74c3c", // Red color
+                color: "#fff",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "20px", // Adjusted for round edges
+                cursor: "pointer",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+              }}
+              onMouseOver={(e) => (e.target.style.background = "#c0392b")} // Darker red color on hover
+              onMouseOut={(e) => (e.target.style.background = "#e74c3c")}
+            >SOLD</Button>
             ) : (
               <>
                 <Button
@@ -79,6 +106,19 @@ export default function BookDetails() {
                       `/order-summary/${book._id}/${conditionVerification}`
                     )
                   }
+                  style={{
+                    background: "#2ecc71", // Greenish color
+                    color: "#fff",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "20px", // Adjusted for round edges
+                    cursor: "pointer",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                    transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+                  }}
+                  onMouseOver={(e) => (e.target.style.background = "#27ae60")} // Darker greenish color on hover
+                  onMouseOut={(e) => (e.target.style.background = "#2ecc71")}
+                
                 >
                   Buy
                 </Button>
@@ -98,6 +138,18 @@ export default function BookDetails() {
             href={`mailto:${book.sellerEmail}?Subject=Bookepedia%20Order%20`}
             target="_blank"
             rel="noopener noreferrer"
+            style={{
+              background: "#3498db", // Bluish color
+              color: "#fff",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "20px", // Adjusted for round edges
+              cursor: "pointer",
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+            }}
+            onMouseOver={(e) => (e.target.style.background = "#2980b9")} // Lighter bluish color on hover
+            onMouseOut={(e) => (e.target.style.background = "#3498db")}
           >
             Email Seller
           </Button>
