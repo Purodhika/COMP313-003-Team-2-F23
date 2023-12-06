@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: `http://localhost:3000/order-summary/${_id}`,
+    success_url: `http://localhost:3000/home`,
     cancel_url: `http://localhost:3000/home`
   });
 
