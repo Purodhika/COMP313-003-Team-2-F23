@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const corsOptions = {
-  origin: "https://bookepedia-qta8.onrender.com/",
+  origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
 };
