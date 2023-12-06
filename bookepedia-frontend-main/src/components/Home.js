@@ -19,7 +19,7 @@ function Home() {
 
 
   const [isbn, setIsbn] = useState('');
-  //const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('');
   //const [book, setBook] = useState(null);
   //const [error, setError] = useState(null);
 
@@ -28,6 +28,21 @@ function Home() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
+      setBooks(response.data);
+      if(response.data.length == 0) alert("Search Returned 0 results")
+      //setBook(response.data);
+      //setError(null);
+    } catch (err) {
+      //setBooks([]);
+      console.log(err)
+     // setError('Book not found');
+    }
+  };
+
+  const handleSearch2 = async () => {
+    try {
+      //const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
+      const response = await axios.get(`http://127.0.0.1:3500/book/${title}`);
       setBooks(response.data);
       if(response.data.length == 0) alert("Search Returned 0 results")
       //setBook(response.data);
@@ -71,11 +86,15 @@ function Home() {
       <option value="6">Date added - Old to New</option>
       <option value="7">Date added - New to Old</option>
       <option value="8">Condition</option>
+      <option value="9">Sell Condition</option>
     </Form.Select>
     </div>
 
     <input type="text" placeholder="ISBN"  value={isbn} onChange={(e) => setIsbn(e.target.value)}/>
       <button onClick={handleSearch}>Search</button>
+      <br/><br/>
+    <input type="text" placeholder="TITLE"  value={title} onChange={(e) => setTitle(e.target.value)}/>
+      <button onClick={handleSearch2}>Search</button>
       <br/><br/>
 
 
