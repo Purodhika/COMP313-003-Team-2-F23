@@ -77,7 +77,6 @@ router.get('/:_id', async (req, res) => {
   }
 });
 
-
 // PUT route to edit a book
 router.post('/edit/:_id', upload.single('image'), async (req, res) => {
   try {

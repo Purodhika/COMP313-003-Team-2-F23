@@ -39,25 +39,25 @@ function Home() {
     }
   };
 
-  const handleSearch2 = async () => {
-    try {
-      //const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
-      const response = await axios.get(`http://127.0.0.1:3500/book/${title}`);
-      setBooks(response.data);
-      if(response.data.length == 0) alert("Search Returned 0 results")
-      //setBook(response.data);
-      //setError(null);
-    } catch (err) {
-      //setBooks([]);
-      console.log(err)
-     // setError('Book not found');
-    }
-  };
+  // const handleSearch2 = async () => {
+  //   try {
+  //     //const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
+  //     const response = await axios.get(`http://127.0.0.1:3500/book/title/${title}`);
+  //     setBooks(response.data);
+  //     if(response.data.length == 0) alert("Search Returned 0 results")
+  //     //setBook(response.data);
+  //     //setError(null);
+  //   } catch (err) {
+  //     //setBooks([]);
+  //     console.log(err)
+  //    // setError('Book not found');
+  //   }
+  // };
 
   const sortBooks = async (sortOrder) => {
     try {
-      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
-      //const response = await axios.get(`http://127.0.0.1:3500/book/sort/${sortOrder}`);
+      //const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
+      const response = await axios.get(`http://127.0.0.1:3500/book/sort/${sortOrder}`);
       setBooks(response.data);
       console.log(sortOrder);
       console.log(response.data);
@@ -93,9 +93,9 @@ function Home() {
     <input type="text" placeholder="ISBN"  value={isbn} onChange={(e) => setIsbn(e.target.value)}/>
       <button onClick={handleSearch}>Search</button>
       <br/><br/>
-    <input type="text" placeholder="TITLE"  value={title} onChange={(e) => setTitle(e.target.value)}/>
+    {/* <input type="text" placeholder="TITLE"  value={title} onChange={(e) => setTitle(e.target.value)}/>
       <button onClick={handleSearch2}>Search</button>
-      <br/><br/>
+      <br/><br/> */}
 
 
     <CardGroup>
