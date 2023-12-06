@@ -56,8 +56,8 @@ function Home() {
 
   const sortBooks = async (sortOrder) => {
     try {
-      //const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
-      const response = await axios.get(`http://127.0.0.1:3500/book/sort/${sortOrder}`);
+      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
+      //const response = await axios.get(`http://127.0.0.1:3500/book/sort/${sortOrder}`);
       setBooks(response.data);
       console.log(sortOrder);
       console.log(response.data);

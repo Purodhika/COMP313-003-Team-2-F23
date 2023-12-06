@@ -37,7 +37,7 @@ function Register(props) {
     }
 
     await axios
-      .post("http://127.0.0.1:3500/user/register/", userRec)
+      .post("https://bookepedia-qta8.onrender.com/user/register/", userRec)
       .then((res) => {
         console.log(userRec);
         console.log(res.data.message);
@@ -137,7 +137,7 @@ function Register(props) {
           >
             <option value="USER">USER</option>
             <option value="DELIVERY">DELIVERY</option>            
-            <option value="ADMIN">ADMIN</option>
+            {/* <option value="ADMIN">ADMIN</option> */}
           </Form.Control>
         </Form.Group>
 
