@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import {GOOGLE_MAPS_API_KEY} from "../config";
+import { GOOGLE_MAPS_API_KEY } from "../config";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { loadStripe } from "@stripe/stripe-js";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 
 export default function BookDetails() {
@@ -18,8 +19,10 @@ export default function BookDetails() {
       .get(`https://bookepedia-qta8.onrender.com/book/details/${_id}`)
       .then((res) => {
         setBook(res.data);
-        setSelectedLocation({ lat: res.data.latitude, lng: res.data.longitude }); 
-
+        setSelectedLocation({
+          lat: res.data.latitude,
+          lng: res.data.longitude,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -27,8 +30,37 @@ export default function BookDetails() {
   }, []);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY, 
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
   });
+
+  // payment integration
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51OGoxdFzmkO0O3uqlOjjAZaPdjUdZE0KcPwpD7AxpNbnzsJyNcnNmlei1zoy9aj5rZFFXz8FrnS2ly36CXwtatei00DEo4i8WJ");
+
+    const body = {
+      name: book.title,
+      price: book.price,
+      _id: book._id
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch("http://localhost:3500/payment", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+    console.log(result)
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
   return (
     <>
       {book ? (
@@ -43,7 +75,10 @@ export default function BookDetails() {
               border: "5px solid #0047a9",
               float: "left",
             }}
-            src={"https://bookepedia-qta8.onrender.com/BookImagesUploaded/" + book.image}
+            src={
+              "https://bookepedia-qta8.onrender.com/BookImagesUploaded/" +
+              book.image
+            }
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src =
@@ -72,14 +107,7 @@ export default function BookDetails() {
               <Button variant="danger">SOLD</Button>
             ) : (
               <>
-                <Button
-                  variant="primary"
-                  onClick={() =>
-                    navigate(
-                      `/order-summary/${book._id}/${conditionVerification}`
-                    )
-                  }
-                >
+                <Button variant="primary" onClick={makePayment}>
                   Buy
                 </Button>
                 <Form.Check
@@ -95,12 +123,12 @@ export default function BookDetails() {
             )}
             {"         "}
             <Button
-            href={`mailto:${book.sellerEmail}?Subject=Bookepedia%20Order%20`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Email Seller
-          </Button>
+              href={`mailto:${book.sellerEmail}?Subject=Bookepedia%20Order%20`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Email Seller
+            </Button>
             <br />
             <small className="text-muted">Book viewed {book.views} times</small>
             <br />
@@ -113,25 +141,19 @@ export default function BookDetails() {
               {new Date(book.dateAdded).toLocaleString("en-CA")}
               <br />
             </p>
-             {/* Display the map with the selected location */}
-          {isLoaded && selectedLocation ? (
-            <div style={{ width: "100%", height: "300px" }}>
-              <GoogleMap
-                center={selectedLocation}
-                zoom={18}
-                mapContainerStyle={{ height: "100%", width: "100%" }}
-              >
-                {selectedLocation && (
-                <MarkerF 
-                
-                position={selectedLocation} 
-                />
-                )}
-              </GoogleMap>
-
-            </div>
-          ) : null}
-          <br />
+            {/* Display the map with the selected location */}
+            {isLoaded && selectedLocation ? (
+              <div style={{ width: "100%", height: "300px" }}>
+                <GoogleMap
+                  center={selectedLocation}
+                  zoom={18}
+                  mapContainerStyle={{ height: "100%", width: "100%" }}
+                >
+                  {selectedLocation && <MarkerF position={selectedLocation} />}
+                </GoogleMap>
+              </div>
+            ) : null}
+            <br />
           </div>
         </div>
       ) : (

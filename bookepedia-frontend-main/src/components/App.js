@@ -21,7 +21,7 @@ import UserOrders from "./orders/UserOrders";
 import EditListing from "./Listings/EditListing";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState();
   const [userType, setUserType] = useState("USER");
   const [userEmail, setUserEmail] = useState("");
 
@@ -52,10 +52,8 @@ function App() {
             <Route path="/listings" element={<AllListings />}></Route>
             <Route path="/book-details/:_id" element={<BookDetails />}></Route>
             <Route path="/edit/:id" element={<EditListing />}> </Route>
-            {/* <Route path="/edit/:id" element={<BookUpload />}></Route> */}
-
             <Route
-              path="/order-summary/:_id/:conditionVerification"
+              path="/order-summary/:_id"
               element={<OrderSummary />}
             ></Route>
             <Route
