@@ -11,6 +11,7 @@ import accountContext from "./userAccounts/accountContext";
 import logo from "./media/bookepedia.gif";
 
 function NavBar(props) {
+  
   let navigate = useNavigate();
   const { loggedIn, setLoggedIn, userType, setUserType, setUserEmail } =
     React.useContext(accountContext);
@@ -39,6 +40,7 @@ function NavBar(props) {
       <Container fluid>
        <Navbar.Brand>
           <LinkContainer to="home">
+            
             <img
               alt="logo"
               src={logo}

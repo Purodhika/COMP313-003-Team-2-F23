@@ -8,3 +8,6 @@
     width: 100%;
   }
   
+  .cardHover:hover {
+    transform: scale(1.1);
+  }

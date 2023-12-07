@@ -77,17 +77,35 @@ router.get('/:_id', async (req, res) => {
   }
 });
 
-
+//Get route to get the book based on the ISBN number
 router.get('/isbn/:isbn', async (req, res) => {
   const isbn = req.params.isbn;
   try {
     const book = await Book.findOne({ isbn: isbn });
     if (!book) {
-      res.status(200).json([]);
+      return res.status(404).json({ error: 'Book not found' });
     }
     res.status(200).json([book]);
   } catch (err) {
-    res.status(200).json([]);
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/title/:title', async (req, res) => {
+  const title = req.params.title;
+  try {
+    const book = await Book.findOne({ title: title });
+    if (!book) {
+      // If book is not found, respond with 404 Not Found
+      return res.status(404).json({ error: 'Book not found' });
+    }
+    // If book is found, respond with 200 OK and the book data
+    res.status(200).json([book]);
+  } catch (err) {
+    // If an error occurs, respond with 500 Internal Server Error
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

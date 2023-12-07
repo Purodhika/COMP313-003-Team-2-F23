@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import { useNavigate } from "react-router-dom";
+import "./BookUpload.css";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -19,7 +20,7 @@ function Home() {
 
 
   const [isbn, setIsbn] = useState('');
-  //const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('');
   //const [book, setBook] = useState(null);
   //const [error, setError] = useState(null);
 
@@ -27,17 +28,32 @@ function Home() {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
-      setBooks(response.data);
-      if(response.data.length == 0) alert("Search Returned 0 results")
-      //setBook(response.data);
-      //setError(null);
+      if (!isbn && !title) {
+        alert('Please insert ISBN or book title!');
+        return;
+      }
+  
+      let response;
+  
+      if (isbn) {
+        response = await axios.get(`http://127.0.0.1:3500/book/isbn/${isbn}`);
+      } else if (title) {
+        response = await axios.get(`http://127.0.0.1:3500/book/title/${title}`);
+      }
+  
+      if (response.data.length === 0) {
+        alert('No matching books found!');
+      } else {
+        setBooks(response.data);
+      }
     } catch (err) {
-      //setBooks([]);
-      console.log(err)
-     // setError('Book not found');
+      console.error(err);
     }
   };
+  
+  
+  
+  
 
   const sortBooks = async (sortOrder) => {
     try {
@@ -136,23 +152,35 @@ minHeight: "100vh",
     </div>
 
     <div style={{ display: "flex",justifyContent: "center", alignItems: "center" }}>
-  <input
-    type="text"
-    placeholder="Search your book"
-    value={isbn}
-    onChange={(e) => setIsbn(e.target.value)}
-    style={{
-      padding: "6px",
-      border: "1px solid #ddd",
-      borderRadius: "20px",
-      background: "#f8f8f8",
-      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-      transition: "box-shadow 0.3s",
-      width: "10cm",
-    }}
-    onFocus={(e) => (e.target.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)")}
-    onBlur={(e) => (e.target.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)")}
-  />
+    <input
+  type="text"
+  placeholder="Search your book"
+  value={isbn || title}
+  onChange={(e) => {
+    const inputText = e.target.value;
+
+    // Assuming ISBN is a number (you may need to modify the condition based on your ISBN format)
+    if (!isNaN(inputText)) {
+      setIsbn(inputText);
+      setTitle(''); // Clear the title when ISBN is being typed
+    } else {
+      setTitle(inputText);
+      setIsbn(''); // Clear the ISBN when title is being typed
+    }
+  }}
+  style={{
+    padding: "6px",
+    border: "1px solid #ddd",
+    borderRadius: "20px",
+    background: "#f8f8f8",
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+    transition: "box-shadow 0.3s",
+    width: "10cm",
+  }}
+  onFocus={(e) => (e.target.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)")}
+  onBlur={(e) => (e.target.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)")}
+/>
+
   <button
     onClick={handleSearch}
     style={{
@@ -178,19 +206,19 @@ minHeight: "100vh",
 
       <CardGroup>
   {books.map((book, index) => (
-    <Card
-      key={book._id}
-      style={{
-        margin: "15px",
-        border: "1px solid #ddd",
-        borderRadius: "15px",
-        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-        minWidth: "250px",
-        maxWidth: "400px",
-        transition: "transform 0.3s ease-in-out",
-      }}
-      className="hover-scale-card" // Added a class for hover effect
-    >
+     <Card
+     key={book._id}
+     className="cardHover"
+     style={{
+       margin: "15px",
+       border: "1px solid #ddd",
+       borderRadius: "15px",
+       boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+       minWidth: "250px",
+       maxWidth: "400px",
+       transition: "transform 0.4s ease-in-out",
+      
+     }}>
       <Card.Img
         variant="top"
         style={{
