@@ -145,7 +145,8 @@ function NavBar(props) {
             )}
  {loggedIn ? (
               <LinkContainer to="account-details">
-                <Nav.Link>Hello, {accountContext.email} - My Account</Nav.Link>              
+                <Nav.Link style={{ transition: "color 0.3s" }}onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
+                  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>Hello, {accountContext.email} - My Account</Nav.Link>              
               </LinkContainer>
             ) : (
               <div></div>
