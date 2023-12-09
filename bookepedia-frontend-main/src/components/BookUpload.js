@@ -91,7 +91,11 @@ function BookUpload() {
   };
 
   return (
-    <div style={{ margin: "90px", textAlign: "center" }}>
+    <div style={{ margin: "90px", textAlign: "center",margin: "1px",
+    background: "rgb(238,174,202)",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+    // Replace with your desired color
+    minHeight: "100vh", }}>
       <img alt="logo" src={logo} className="mx-auto d-block" style={{ width: "130px", marginBottom: "20px" }} />
       <h3
   className="text-center border border-2"

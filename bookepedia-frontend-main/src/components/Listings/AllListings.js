@@ -19,28 +19,35 @@ export default function AllListings() {
   }, []);
 
   return (
-    <div>
-      {userType === "ADMIN" ? <h1>All Listings</h1> : <h1>Your Listings</h1>}
-
-      {userType !== "ADMIN"
-        ? allListings.map((listing) =>
-            listing.sellerEmail === userEmail ? (
-              <Listing
-                key={listing._id}
-                book={listing}
-                setAllListings={setAllListings}
-              />
-            ) : (
-              <div></div>
-            )
-          )
-        : allListings.map((listing) => (
-            <Listing
-              key={listing._id}
-              book={listing}
-              setAllListings={setAllListings}
-            />
-          ))}
-    </div>
+    <div style={{ textAlign: "center",margin: "1px",
+    background: "rgb(238,174,202)",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+    // Replace with your desired color
+    minHeight: "100vh", }}>
+  {userType === "ADMIN" ? (
+    <h1 style={{ color: "#3498db" }}>All Listings</h1>
+  ) : (
+    <h1 style={{ color: "#27ae60" }}>Your Listings</h1>
+  )}
+<div style={{justifyContent:"center"}}>
+  {userType !== "ADMIN"
+    ? allListings.map((listing) =>
+        listing.sellerEmail === userEmail ? (
+          <div key={listing._id} style={{ padding:"10px"}}>
+            {/* Other styling for each listing */}
+            <Listing book={listing} setAllListings={setAllListings} />
+          </div>
+        ) : (
+          <div key={listing._id}></div>
+        )
+      )
+    : allListings.map((listing) => (
+        <div key={listing._id} style={{ padding:"10px" }}>
+          {/* Other styling for each listing */}
+          <Listing book={listing} setAllListings={setAllListings} />
+        </div>
+      ))}
+</div>
+</div>
   );
 }
