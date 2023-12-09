@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
+//stripe for payment portal
 router.post("/", async (req, res) => {
   const { name, price, _id } = req.body;
 
