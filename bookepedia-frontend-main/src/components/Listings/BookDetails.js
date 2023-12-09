@@ -34,33 +34,33 @@ export default function BookDetails() {
   });
 
   // payment integration through stripe
-  const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51OGoxdFzmkO0O3uqlOjjAZaPdjUdZE0KcPwpD7AxpNbnzsJyNcnNmlei1zoy9aj5rZFFXz8FrnS2ly36CXwtatei00DEo4i8WJ");
+  // const makePayment = async () => {
+  //   const stripe = await loadStripe("pk_test_51OGoxdFzmkO0O3uqlOjjAZaPdjUdZE0KcPwpD7AxpNbnzsJyNcnNmlei1zoy9aj5rZFFXz8FrnS2ly36CXwtatei00DEo4i8WJ");
 
-    const body = {
-      name: book.title,
-      price: book.price,
-      _id: book._id
-    };
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    const response = await fetch("https://bookepedia-qta8.onrender.com/payment", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body),
-    });
+  //   const body = {
+  //     name: book.title,
+  //     price: book.price,
+  //     _id: book._id
+  //   };
+  //   const headers = {
+  //     "Content-Type": "application/json",
+  //   };
+  //   const response = await fetch("https://bookepedia-qta8.onrender.com/payment", {
+  //     method: "POST",
+  //     headers: headers,
+  //     body: JSON.stringify(body),
+  //   });
 
-    const session = await response.json();
+  //   const session = await response.json();
 
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-    console.log(result)
-    if (result.error) {
-      console.log(result.error);
-    }
-  };
+  //   const result = stripe.redirectToCheckout({
+  //     sessionId: session.id,
+  //   });
+  //   console.log(result)
+  //   if (result.error) {
+  //     console.log(result.error);
+  //   }
+  // };
   return (
     <>
       {book ? (
@@ -107,7 +107,11 @@ export default function BookDetails() {
               <Button variant="danger">SOLD</Button>
             ) : (
               <>
-                <Button variant="primary" onClick={makePayment}>
+                <Button variant="primary" onClick={() =>
+                    navigate(
+                      `/order-summary/${book._id}/${conditionVerification}`
+                    )
+                  }>
                   Buy
                 </Button>
                 <Form.Check

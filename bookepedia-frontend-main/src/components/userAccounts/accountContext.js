@@ -1,9 +1,11 @@
 import React from "react";
 
 const accountContext = React.createContext({
-  loggedIn: window.sessionStorage.getItem("loggedIn"),
+  loggedIn: true,
+ // loggedIn: window.sessionStorage.getItem("loggedIn"),
   setLoggedIn: (value) => {
-    window.sessionStorage.setItem("loggedIn", value);
+    this.loggedIn = value;
+    //window.sessionStorage.setItem("loggedIn", value);
   },
   userType: "user",
   setUserType: (user) => {
