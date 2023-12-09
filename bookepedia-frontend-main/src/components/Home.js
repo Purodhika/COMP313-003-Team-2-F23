@@ -36,9 +36,9 @@ function Home() {
       let response;
   
       if (isbn) {
-        response = await axios.get(`http://127.0.0.1:3500/book/isbn/${isbn}`);
+        response = await axios.get(`https://bookepedia-qta8.onrender.com/book/isbn/${isbn}`);
       } else if (title) {
-        response = await axios.get(`http://127.0.0.1:3500/book/title/${title}`);
+        response = await axios.get(`https://bookepedia-qta8.onrender.com/book/title/${title}`);
       }
   
       if (response.data.length === 0) {
