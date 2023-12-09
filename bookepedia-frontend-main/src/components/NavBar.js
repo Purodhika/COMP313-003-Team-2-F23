@@ -34,12 +34,15 @@ function NavBar(props) {
       <Container fluid>
         <Navbar.Brand>
           <LinkContainer to="home">
+          <Nav.Link>
             <img
               alt="logo"
               src={logo}
               width="75"
               className="d-inline-block align-top"
             />
+            </Nav.Link>
+            
           </LinkContainer>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
