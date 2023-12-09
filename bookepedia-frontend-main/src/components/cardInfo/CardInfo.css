@@ -1,0 +1,18 @@
+/* CardInfo.css */
+
+.payment-form-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .error-message {
+    color: #dc3545; /* Bootstrap danger color */
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  
