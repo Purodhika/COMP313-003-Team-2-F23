@@ -53,7 +53,7 @@ function App() {
             <Route path="/book-details/:_id" element={<BookDetails />}></Route>
             <Route path="/edit/:id" element={<EditListing />}> </Route>
             <Route
-              path="/order-summary/:_id"
+              path="/order-summary/:_id/:conditionVerification"
               element={<OrderSummary />}
             ></Route>
             <Route
