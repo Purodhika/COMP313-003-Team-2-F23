@@ -33,34 +33,6 @@ export default function BookDetails() {
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
   });
 
-  // payment integration through stripe
-  // const makePayment = async () => {
-  //   const stripe = await loadStripe("pk_test_51OGoxdFzmkO0O3uqlOjjAZaPdjUdZE0KcPwpD7AxpNbnzsJyNcnNmlei1zoy9aj5rZFFXz8FrnS2ly36CXwtatei00DEo4i8WJ");
-
-  //   const body = {
-  //     name: book.title,
-  //     price: book.price,
-  //     _id: book._id
-  //   };
-  //   const headers = {
-  //     "Content-Type": "application/json",
-  //   };
-  //   const response = await fetch("https://bookepedia-qta8.onrender.com/payment", {
-  //     method: "POST",
-  //     headers: headers,
-  //     body: JSON.stringify(body),
-  //   });
-
-  //   const session = await response.json();
-
-  //   const result = stripe.redirectToCheckout({
-  //     sessionId: session.id,
-  //   });
-  //   console.log(result)
-  //   if (result.error) {
-  //     console.log(result.error);
-  //   }
-  // };
   return (
     <>
       {book ? (
@@ -98,20 +70,47 @@ export default function BookDetails() {
             <Button
               variant="primary"
               onClick={() => navigate("/book-details/" + book._id)}
+              style={{
+                background: "#3498db", // Bluish color
+                color: "#fff",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "20px", // Adjusted for round edges
+                cursor: "pointer",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+              }}
+              onMouseOver={(e) => (e.target.style.background = "#2980b9")} // Lighter bluish color on hover
+              onMouseOut={(e) => (e.target.style.background = "#3498db")}
             >
+            
+              
+            
               Price: ${book.price.toFixed(2)}
             </Button>
 
             {"         "}
             {book.sold ? (
-              <Button variant="danger">SOLD</Button>
+               <Button variant="danger"   style={{
+                background: "#e74c3c", // Red color
+                color: "#fff",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "20px", // Adjusted for round edges
+                cursor: "pointer",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+              }}
+              onMouseOver={(e) => (e.target.style.background = "#c0392b")} // Darker red color on hover
+              onMouseOut={(e) => (e.target.style.background = "#e74c3c")}
+            >SOLD</Button>
             ) : (
               <>
                 <Button variant="primary" onClick={() =>
                     navigate(
                       `/order-summary/${book._id}/${conditionVerification}`
                     )
-                  }>
+                }>
                   Buy
                 </Button>
                 <Form.Check
@@ -127,12 +126,25 @@ export default function BookDetails() {
             )}
             {"         "}
             <Button
-              href={`mailto:${book.sellerEmail}?Subject=Bookepedia%20Order%20`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Email Seller
-            </Button>
+
+            href={`mailto:${book.sellerEmail}?Subject=Bookepedia%20Order%20`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              background: "#3498db", // Bluish color
+              color: "#fff",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "20px", // Adjusted for round edges
+              cursor: "pointer",
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+            }}
+            onMouseOver={(e) => (e.target.style.background = "#2980b9")} // Lighter bluish color on hover
+            onMouseOut={(e) => (e.target.style.background = "#3498db")}
+          >
+            Email Seller
+          </Button>
             <br />
             <small className="text-muted">Book viewed {book.views} times</small>
             <br />
