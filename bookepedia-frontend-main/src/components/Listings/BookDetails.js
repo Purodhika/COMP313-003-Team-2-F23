@@ -33,7 +33,7 @@ export default function BookDetails() {
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
   });
 
-  // payment integration
+  // payment integration through stripe
   const makePayment = async () => {
     const stripe = await loadStripe("pk_test_51OGoxdFzmkO0O3uqlOjjAZaPdjUdZE0KcPwpD7AxpNbnzsJyNcnNmlei1zoy9aj5rZFFXz8FrnS2ly36CXwtatei00DEo4i8WJ");
 
