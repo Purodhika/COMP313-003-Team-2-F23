@@ -91,7 +91,7 @@ function NavBar(props) {
           </Nav>
 
           <Nav>
-            <Form className="d-flex">
+            {/* <Form className="d-flex">
               <Form.Control
                 type="search"
                 placeholder="Search"
@@ -115,7 +115,7 @@ function NavBar(props) {
               >
                 Search
               </Button>
-            </Form>
+            </Form> */}
 
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="upload">
@@ -151,7 +151,7 @@ function NavBar(props) {
             ) : (
               <div></div>
             )}
-            {loggedIn ? (
+            {/* {loggedIn ? (
               <LinkContainer to="account-details">
                 <Nav.Link style={{ transition: "color 0.3s" }}
                 onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
@@ -159,7 +159,7 @@ function NavBar(props) {
               </LinkContainer>
             ) : (
               <div></div>
-            )}
+            )} */}
 
             {loggedIn ? (
               <div></div>
