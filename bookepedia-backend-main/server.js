@@ -21,9 +21,11 @@ app.use(cors(corsOptions));
 const usersRouter = require("./routes/users");
 const booksRouter = require("./routes/books");
 const ordersRouter = require("./routes/orders");
+const paymentsRouter = require("./routes/payments");
 app.use("/user", usersRouter);
 app.use("/book", booksRouter);
 app.use("/orders", ordersRouter);
+app.use("/payment", paymentsRouter);
 
 app.use("/BookImagesUploaded", express.static("BookImagesUploaded"));
 

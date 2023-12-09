@@ -127,6 +127,21 @@ function Register(props) {
             placeholder="Password"
           />
         </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicUserType" style={{ textAlign: "left" }}>
+          <Form.Label>Account Type</Form.Label>
+          <Form.Control
+            required
+            as="select"
+            name="userType"
+            type="text"
+            value={userRec.userType}
+            onChange={onchange}
+          >
+            <option value="USER">USER</option>
+            <option value="DELIVERY">DELIVERY</option>            
+            {/* <option value="ADMIN">ADMIN</option> */}
+          </Form.Control>
+        </Form.Group>
 
         <Button
   variant="primary"

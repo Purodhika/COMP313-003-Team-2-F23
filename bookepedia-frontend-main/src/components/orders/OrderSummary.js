@@ -47,6 +47,7 @@ export default function OrderSummary() {
       isbn: book.isbn,
       price: book.price,
       conditionVerification:  conditionVerification ? "Yes" : "No"
+      //conditionVerification: "Yes"
     };
 
     axios
@@ -57,10 +58,8 @@ export default function OrderSummary() {
           alert(`Order successful`);
           navigate("/");
         }
-        if (res.status === 202) {
-          alert(res.message);
-          navigate("/");
-        } else {
+   
+        else {
           alert(`Sorry, an error ocurred. Please try again later.`);
           navigate("/");
         }
@@ -69,11 +68,12 @@ export default function OrderSummary() {
 
   function handleCancel() {
     //navigate to home
+    navigate("/")
   }
 
   return (
     <div>
-      {paymentValidated ? (
+     {paymentValidated ? (
         <div>
           <h1>Order Summary</h1>
           <p>
@@ -93,11 +93,11 @@ export default function OrderSummary() {
             Cancel
           </Button>
         </div>
-      ) : (
-        <div>
-          <CardInfo setPaymentValidated={setPaymentValidated} />
-        </div>
-      )}
+     ) : (
+      <div>
+        <CardInfo setPaymentValidated={setPaymentValidated} />
+      </div>
+    )}
     </div>
   );
 }
