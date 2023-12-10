@@ -13,6 +13,7 @@ function Register(props) {
     lname: "",
     email: "",
     password: "",
+    userType:""
   });
 
   let navigate = useNavigate();
