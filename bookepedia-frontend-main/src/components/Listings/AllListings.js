@@ -3,6 +3,9 @@ import axios from "axios";
 import Listing from "./Listing";
 import accountContext from "../userAccounts/accountContext";
 
+/**
+ * Component to display all listings of a particular seller
+ */
 export default function AllListings() {
   const [allListings, setAllListings] = useState([]);
   const { userEmail, userType } = React.useContext(accountContext);

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import accountContext from "./accountContext";
-
-//css
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -18,11 +16,6 @@ export default function Login() {
     React.useContext(accountContext);
 
   let navigate = useNavigate();
-
-  //connect with database
-  //find by id via emailfield
-  //check password with corresponding value
-  //if successful, update accountContext
 
   function handleLogIn(event) {
     event.preventDefault();

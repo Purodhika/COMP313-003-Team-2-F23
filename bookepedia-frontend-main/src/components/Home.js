@@ -21,9 +21,6 @@ function Home() {
 
   const [isbn, setIsbn] = useState('');
   const [title, setTitle] = useState('');
-  //const [book, setBook] = useState(null);
-  //const [error, setError] = useState(null);
-
   const [sort, setSort] = useState(1);
 
   const handleSearch = async () => {
@@ -50,22 +47,13 @@ function Home() {
       console.error(err);
     }
   };
-  
-  
-  
-  
-
   const sortBooks = async (sortOrder) => {
     try {
       const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
       setBooks(response.data);
-      //if(response.data.length == 0) alert("Search Returned 0 results")
-      //setBook(response.data);
-      //setError(null);
+  
     } catch (err) {
-      //setBooks([]);
       console.log(err)
-     // setError('Book not found');
     }
   };
 
@@ -75,11 +63,7 @@ function Home() {
 margin: "1px",
 background: "rgb(238,174,202)",
 background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
-// Replace with your desired color
 minHeight: "100vh",
-
-
-
 
 }}>
 <br/>
@@ -307,46 +291,10 @@ minHeight: "100vh",
   ))}
 </CardGroup>;
 
-
-
     </div>
   );
 
-  /*
-
-  const [isbn, setIsbn] = useState('');
-  const [book, setBook] = useState(null);
-  const [error, setError] = useState(null);
-
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
-      setBook(response.data);
-      setError(null);
-    } catch (err) {
-      setBook(null);
-      setError('Book not found');
-    }
-  };
-
-  return (
-    <div>
-      <input type="text" placeholder="ISBN" value={isbn} onChange={(e) => setIsbn(e.target.value)} />
-      <button onClick={handleSearch}>Search</button>
-      {book ? (
-        <div>
-          <h2>{book.title}</h2>
-          <p>Author: {book.authors}</p>
-          <p>ISBN: {book.isbn}</p>
-          <p>Description: {book.description}</p>
-        </div>
-      ) : error ? (
-        <p>{error}</p>
-      ) : null}
-    </div>
-  );
-
-  */
+ 
 }
 
 export default Home;

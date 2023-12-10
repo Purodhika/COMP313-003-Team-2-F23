@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 
+/**
+ * Component representing tuser accounts for the admin
+ */
 export default function Account({ user }) {
   let navigate = useNavigate();
 

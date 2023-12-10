@@ -7,6 +7,9 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Image from 'react-bootstrap/Image';
 import accountContext from '../userAccounts/accountContext';
 
+/**
+ * Component to edit an existing book uploaded by the same seller
+ */
 function EditListing() {
   const navigate = useNavigate();
   const { id } = useParams();

@@ -5,6 +5,9 @@ import CardInfo from "../cardInfo/CardInfo";
 import Button from "react-bootstrap/Button";
 import accountContext from "../userAccounts/accountContext";
 
+/**
+ * Component to confirm order before final checkout
+ */
 export default function OrderSummary() {
   const [paymentValidated, setPaymentValidated] = useState(false);
   const [book, setBook] = useState({});

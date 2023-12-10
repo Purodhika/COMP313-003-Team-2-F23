@@ -7,6 +7,10 @@ import Form from "react-bootstrap/Form";
 import { loadStripe } from "@stripe/stripe-js";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 
+/**
+ * Component representing the details page for a book.
+ * Fetches book details from the server and displays them.
+ */
 export default function BookDetails() {
   let navigate = useNavigate();
   const { _id } = useParams();

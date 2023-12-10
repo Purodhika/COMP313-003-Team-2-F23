@@ -20,6 +20,9 @@ import OrderSummary from "./orders/OrderSummary";
 import UserOrders from "./orders/UserOrders";
 import EditListing from "./Listings/EditListing";
 
+/**
+ * Component to manage all routes for front-end
+ */
 function App() {
   const [loggedIn, setLoggedIn] = useState();
   const [userType, setUserType] = useState("USER");

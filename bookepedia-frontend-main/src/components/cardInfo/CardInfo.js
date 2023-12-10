@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import accountContext from "../userAccounts/accountContext";
 import "./CardInfo.css"; // Import your custom CSS file
 
+/**
+ * Component that acts as the payment portal
+ */
 export default function CardInfo({ setPaymentValidated }) {
   let navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState("");

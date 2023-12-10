@@ -12,6 +12,11 @@ import { useNavigate } from "react-router-dom";
 import "./BookUpload.css";
 import { GOOGLE_MAPS_API_KEY } from "./config";
 
+/**
+ * Component to add a new book by seller.
+ * Posts book details to the server.
+ */
+
 function BookUpload() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
