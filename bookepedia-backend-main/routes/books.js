@@ -49,15 +49,25 @@ router.post("/upload/", upload.single('image'), async (req, res) => {
 
 //Get all books
 router.get('/', async (req, res) =>{
+  // Default to page 1 if not provided
+  const page = parseInt(req.query.page) || 1; 
+  // Default to 3 items per page if not provided
+  const limit = parseInt(req.query.limit) || 3; 
+  //skip index
+  const skipIndex = (page - 1) * limit;
 
   try {
-    const books = await Book.find().sort({views: -1, dateAdded: -1})
+    const books = await Book.find()
+      .sort({views: -1, dateAdded: -1})
+      .limit(limit)
+      .skip(skipIndex);
     res.json(books)    
   } catch (err) {
     res.status(500).json({message: err.message})
   }
 
 })
+
 
 router.get('/:_id', async (req, res) => {
   const bookId = req.params._id;
