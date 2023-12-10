@@ -68,71 +68,18 @@ minHeight: "100vh",
 }}>
 <br/>
 <div style={{float: 'right'}}>
-      <Form.Label htmlFor="sort"   style={{
-    fontSize: "15px", // Adjust font size
-    fontWeight: "bold", // Bold text
-    color: "#333", // Dark grey text color
-    margin: "10px", // Add some bottom margin
-    //display: "block", // Make sure it's a block element
-  }}>Sort By</Form.Label>
-      <Form.Select
-  value={sort}
-  onChange={(e) => {
-    setSort(e.target.value);
-    sortBooks(e.target.value);
-  }}
-  id="sort"
-  aria-label="Default select example"
-  style={{
-    display: "inline-block",
-    width: "200px",
-    padding: "10px", // Add padding for a more comfortable feel
-    borderRadius: "8px", // Add rounded corners
-    border: "2px solid #555", // Add a dark border
-    backgroundColor: "#fff", // White background
-    color: "#333", // Dark grey text color
-    fontWeight: "bold", // Bold text
-    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add a subtle shadow
-    transition: "border-color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s", // Add transitions
-  }}
->
-  <option value="1"   style={{
-      padding: "10px",
-      backgroundColor: "#ECF0F1", // Light gray background
-      color: "#3498DB", // Cool blue text color
-      borderRadius: "8px",
-      fontWeight: "bold",
-    }}>Popularity/Newest</option>
-  <option value="2"   style={{
-      padding: "10px",
-      backgroundColor: "#D6EAF8", // Light blue background
-      color: "#3498DB", // Cool blue text color
-      borderRadius: "8px",
-      fontWeight: "bold",
-    }}>Price - High to Low</option>
-  <option value="3"  style={{
-      padding: "10px",
-      backgroundColor: "#A9CCE3", // Sky blue background
-      color: "#3498DB", // Cool blue text color
-      borderRadius: "8px",
-      fontWeight: "bold",
-    }}>Price - Low to High</option>
-  <option value="4"  style={{
-      padding: "10px",
-      backgroundColor: "#5DADE2", // Dodger blue background
-      color: "#fff", // White text color for contrast
-      borderRadius: "8px",
-      fontWeight: "bold",
-    }}>Genre</option>
-  <option value="5"  style={{
-      padding: "10px",
-      backgroundColor: "#3498DB", // Cool blue background
-      color: "#fff", // White text color for contrast
-      borderRadius: "8px",
-      fontWeight: "bold",
-    }} >Authors</option>
-</Form.Select>
-
+      <Form.Label htmlFor="sort">Sort By</Form.Label>
+      <Form.Select value={sort} onChange={(e) => {setSort(e.target.value); sortBooks(e.target.value); }} id="sort" aria-label="Default select example" style={{display:"inline-block", width:"200px"}}>      
+      <option value="1">Popularity/Newest</option>
+      <option value="2">Price - High to Low</option>
+      <option value="3">Price - Low to High</option>
+      <option value="4">Genre</option>
+      <option value="5">Authors</option>
+      <option value="6">Date added - Old to New</option>
+      <option value="7">Date added - New to Old</option>
+      <option value="8">Condition</option>
+      <option value="9">Sell Condition</option>
+    </Form.Select>
     </div>
 
     <div style={{ display: "flex",justifyContent: "center", alignItems: "center" }}>
@@ -186,6 +133,9 @@ minHeight: "100vh",
 </div>
 
       <br/><br/>
+    {/* <input type="text" placeholder="TITLE"  value={title} onChange={(e) => setTitle(e.target.value)}/>
+      <button onClick={handleSearch2}>Search</button>
+      <br/><br/> */}
 
 
       <CardGroup>
