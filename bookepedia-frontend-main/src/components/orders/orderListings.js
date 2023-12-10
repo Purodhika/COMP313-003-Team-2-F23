@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Order from "./Order";
 
+/**
+ * Component representing tall active orders
+ */
 const ActiveOrders = () => {
   const [orders, setOrders] = useState([]);
 

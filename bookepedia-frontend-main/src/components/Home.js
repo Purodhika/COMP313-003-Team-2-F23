@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import { useNavigate } from "react-router-dom";
+import "./BookUpload.css";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -20,60 +21,51 @@ function Home() {
 
   const [isbn, setIsbn] = useState('');
   const [title, setTitle] = useState('');
-  //const [book, setBook] = useState(null);
-  //const [error, setError] = useState(null);
-
   const [sort, setSort] = useState(1);
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
-      setBooks(response.data);
-      if(response.data.length == 0) alert("Search Returned 0 results")
-      //setBook(response.data);
-      //setError(null);
+      if (!isbn && !title) {
+        alert('Please insert ISBN or book title!');
+        return;
+      }
+  
+      let response;
+  
+      if (isbn) {
+        response = await axios.get(`https://bookepedia-qta8.onrender.com/book/isbn/${isbn}`);
+      } else if (title) {
+        response = await axios.get(`https://bookepedia-qta8.onrender.com/book/title/${title}`);
+      }
+  
+      if (response.data.length === 0) {
+        alert('No matching books found!');
+      } else {
+        setBooks(response.data);
+      }
     } catch (err) {
-      //setBooks([]);
-      console.log(err)
-     // setError('Book not found');
+      console.error(err);
     }
   };
-
-  // const handleSearch2 = async () => {
-  //   try {
-  //     //const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
-  //     const response = await axios.get(`http://127.0.0.1:3500/book/title/${title}`);
-  //     setBooks(response.data);
-  //     if(response.data.length == 0) alert("Search Returned 0 results")
-  //     //setBook(response.data);
-  //     //setError(null);
-  //   } catch (err) {
-  //     //setBooks([]);
-  //     console.log(err)
-  //    // setError('Book not found');
-  //   }
-  // };
-
   const sortBooks = async (sortOrder) => {
     try {
-      //const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
-      const response = await axios.get(`http://127.0.0.1:3500/book/sort/${sortOrder}`);
+      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/sort/${sortOrder}`);
       setBooks(response.data);
-      console.log(sortOrder);
-      console.log(response.data);
-      //if(response.data.length == 0) alert("Search Returned 0 results")
-      //setBook(response.data);
-      //setError(null);
+  
     } catch (err) {
-      //setBooks([]);
       console.log(err)
-     // setError('Book not found');
     }
   };
 
 
   return (
-<div style={{ margin: "90px" }}>
+<div style={{ 
+margin: "1px",
+background: "rgb(238,174,202)",
+background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+minHeight: "100vh",
+
+}}>
 <br/>
 <div style={{float: 'right'}}>
       <Form.Label htmlFor="sort">Sort By</Form.Label>
@@ -90,112 +82,169 @@ function Home() {
     </Form.Select>
     </div>
 
-    <input type="text" placeholder="ISBN"  value={isbn} onChange={(e) => setIsbn(e.target.value)}/>
-      <button onClick={handleSearch}>Search</button>
+    <div style={{ display: "flex",justifyContent: "center", alignItems: "center" }}>
+    <input
+  type="text"
+  placeholder="Search your book"
+  value={isbn || title}
+  onChange={(e) => {
+    const inputText = e.target.value;
+
+    // Assuming ISBN is a number (you may need to modify the condition based on your ISBN format)
+    if (!isNaN(inputText)) {
+      setIsbn(inputText);
+      setTitle(''); // Clear the title when ISBN is being typed
+    } else {
+      setTitle(inputText);
+      setIsbn(''); // Clear the ISBN when title is being typed
+    }
+  }}
+  style={{
+    padding: "6px",
+    border: "1px solid #ddd",
+    borderRadius: "20px",
+    background: "#f8f8f8",
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+    transition: "box-shadow 0.3s",
+    width: "10cm",
+  }}
+  onFocus={(e) => (e.target.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)")}
+  onBlur={(e) => (e.target.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)")}
+/>
+
+  <button
+    onClick={handleSearch}
+    style={{
+      background: "#E76F51",
+      color: "#fff",
+      margin: "5px",
+      padding: "5px 15px",
+      border: "none",
+      borderRadius: "20px",
+      cursor: "pointer",
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+    }}
+    onMouseOver={(e) => (e.target.style.background = "#FFA726")}
+    onMouseOut={(e) => (e.target.style.background = "#E76F51")}
+  >
+    Search
+  </button>
+</div>
+
       <br/><br/>
     {/* <input type="text" placeholder="TITLE"  value={title} onChange={(e) => setTitle(e.target.value)}/>
       <button onClick={handleSearch2}>Search</button>
       <br/><br/> */}
 
 
-    <CardGroup>
-      {books.map((book, index) => (
-        <Card
-          key={book._id}
+      <CardGroup>
+  {books.map((book, index) => (
+     <Card
+     key={book._id}
+     className="cardHover"
+     style={{
+       margin: "15px",
+       border: "1px solid #ddd",
+       borderRadius: "15px",
+       boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+       minWidth: "250px",
+       maxWidth: "400px",
+       transition: "transform 0.4s ease-in-out",
+      
+     }}>
+      <Card.Img
+        variant="top"
+        style={{
+          width: "100%",
+          maxHeight: "200px",
+          objectFit: "cover",
+          borderBottom: "1px solid #ddd",
+          borderTopLeftRadius: "15px",
+          borderTopRightRadius: "15px",
+        }}
+        src={
+          "https://bookepedia-qta8.onrender.com/BookImagesUploaded/" +
+          book.image
+        }
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src =
+            "https://bookepedia-qta8.onrender.com/BookImagesUploaded/noImage.png";
+        }}
+      />
+      <Card.Body>
+        <Card.Title style={{ textAlign: "center", fontWeight: "bold", color: "#333" }}>
+          {book.title}
+        </Card.Title>
+        <i style={{ textAlign: "center", display: "block", color: "#555" }}>
+          by {book.authors}
+        </i>
+        <p style={{ marginBottom: "10px", color: "#777" }}>
+          <strong>Condition:</strong> {book.condition}
+        </p>
+        <Card.Text style={{ color: "#333" }}>{book.description}</Card.Text>
+        <Button
+          variant="primary"
+          onClick={() => navigate("/book-details/" + book._id)}
           style={{
-            margin: "15px",
-            border: "1px solid black",
-            borderRadius: "0px",
-            minWidth: "250px",
-            maxWidth: '400px'
+            background: "#3498db",
+            color: "#fff",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "20px",
+            cursor: "pointer",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
           }}
+          onMouseOver={(e) => (e.target.style.background = "#2980b9")}
+          onMouseOut={(e) => (e.target.style.background = "#3498db")}
         >
-          <Card.Img
-            variant="top"
+          Price: ${book.price.toFixed(2)}
+        </Button>
+        {'         '}
+        {book.sold ? (
+          <Button
+            variant="danger"
             style={{
-              width: "100%",
-
-              maxHeight: "200px",
-              objectFit: "contain",
-              borderBottom: "1px solid black",
+              background: "#e74c3c",
+              color: "#fff",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "20px",
+              cursor: "pointer",
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
             }}
-            src={"https://bookepedia-qta8.onrender.com/BookImagesUploaded/" + book.image}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src="https://bookepedia-qta8.onrender.com/BookImagesUploaded/noImage.png";}}
-          />
-          <Card.Body>
-            <Card.Title style={{ textAlign: "center" }}>
-              {book.title}
-            </Card.Title>
-            <i style={{ textAlign: "center", display: "block" }}>
-              by {book.authors}
-            </i>
-            <p>Condition: {book.condition}</p>
-            <hr/>
-            <Card.Text>{book.description}</Card.Text>
-            <hr/>
-            <Button variant="primary" onClick={() => navigate('/book-details/' + book._id)}>Price: ${book.price.toFixed(2)}</Button>
-            
-            {'         '}
-            {book.sold ? (<Button variant="danger">SOLD</Button>) : (<span></span>)}
-            
-            
-            
-            <br/>
-            <small className="text-muted">Book viewed {book.views} times</small>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">
-              Genre: {book.genre} <br/>
-              ISBN: {book.isbn} <br />
-              Sold by: {book.sellerEmail} <br/>
-              Date Added: {new Date(book.dateAdded).toLocaleString("en-CA")}<br/>
-              
-            </small>
-          </Card.Footer>
-        </Card>
-      ))}
-    </CardGroup>
+            onMouseOver={(e) => (e.target.style.background = "#c0392b")}
+            onMouseOut={(e) => (e.target.style.background = "#e74c3c")}
+          >
+            SOLD
+          </Button>
+        ) : (
+          <span></span>
+        )}
+        <br />
+        <small className="text-muted">Book viewed {book.views} times</small>
+      </Card.Body>
+      <Card.Footer style={{ borderTop: "1px solid #ddd", borderRadius: "15px", backgroundColor: "#f8f8f8" }}>
+        <small style={{ color: "#555" }}>
+          <strong>Genre:</strong> {book.genre} <br />
+          <strong>ISBN:</strong> {book.isbn} <br />
+          <strong>Sold by:</strong> {book.sellerEmail} <br />
+          <strong>Date Added:</strong>{" "}
+          {new Date(book.dateAdded).toLocaleString("en-CA")}{" "}
+          <br />
+        </small>
+      </Card.Footer>
+    </Card>
+  ))}
+</CardGroup>;
 
     </div>
   );
 
-  /*
-
-  const [isbn, setIsbn] = useState('');
-  const [book, setBook] = useState(null);
-  const [error, setError] = useState(null);
-
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`https://bookepedia-qta8.onrender.com/book/${isbn}`);
-      setBook(response.data);
-      setError(null);
-    } catch (err) {
-      setBook(null);
-      setError('Book not found');
-    }
-  };
-
-  return (
-    <div>
-      <input type="text" placeholder="ISBN" value={isbn} onChange={(e) => setIsbn(e.target.value)} />
-      <button onClick={handleSearch}>Search</button>
-      {book ? (
-        <div>
-          <h2>{book.title}</h2>
-          <p>Author: {book.authors}</p>
-          <p>ISBN: {book.isbn}</p>
-          <p>Description: {book.description}</p>
-        </div>
-      ) : error ? (
-        <p>{error}</p>
-      ) : null}
-    </div>
-  );
-
-  */
+ 
 }
 
 export default Home;

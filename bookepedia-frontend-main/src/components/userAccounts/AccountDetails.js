@@ -60,14 +60,26 @@ export default function AccountDetails() {
   }
 
   return (
-    <div style={{margin:"auto", width:"40%"}}>
+    <div style={{margin: "1px",
+    background: "rgb(238,174,202)",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+    minHeight: "100vh",
+    justifyContent: "center", // Center the content horizontally
+    alignItems: "center", 
+    
+      justifyContent: "center", // Center the content horizontally
+      alignItems: "center", }}>
+
+    <div style={{margin:"auto", width:"40%",justifyContent: "center", // Center the content horizontally
+    alignItems: "center",  }}>
       <img
         alt="logo"
         src={logo}
         className="mx-auto d-block"
         style={{ width: "130px" }}
       />
-      <h1>Account Details</h1>
+      <h1 style={{margin:"auto", width:"60%",justifyContent: "center", // Center the content horizontally
+    alignItems: "center",  }}>Account Details</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="first-name">
           <Form.Label>First Name</Form.Label>
@@ -88,10 +100,25 @@ export default function AccountDetails() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={{
+          
+            background: "#3498db",
+            color: "#fff",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "20px",
+            cursor: "pointer",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+            
+          }}
+          onMouseOver={(e) => (e.target.style.background = "#2980b9")}
+          onMouseOut={(e) => (e.target.style.background = "#3498db")}>
+            
           Save
         </Button>
       </Form>
+    </div>
     </div>
   );
 }

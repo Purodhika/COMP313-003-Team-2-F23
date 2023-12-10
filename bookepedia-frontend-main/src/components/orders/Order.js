@@ -5,6 +5,9 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import accountContext from "../userAccounts/accountContext";
 
+/**
+ * Component to display orders when logged in as a delivery admin
+ */
 export default function Order({ order, setOrders }) {
   let navigate = useNavigate();
 

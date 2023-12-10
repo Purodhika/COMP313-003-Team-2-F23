@@ -37,11 +37,8 @@ router.post("/upload/", upload.single('image'), async (req, res) => {
   console.log(book)  
   try {
     const newBook = await book.save();
-    //res.send(newBook)
-    //res.send('success')
     res.status(201).json(newBook);
   } catch (err) {
-    //res.send("ERROR: " + err.message)
     res.status(400).json({ message: err.message });
   }
 
@@ -76,6 +73,39 @@ router.get('/:_id', async (req, res) => {
     res.status(500).json({ message: 'Error fetching book data' });
   }
 });
+
+//Get route to get the book based on the ISBN number
+router.get('/isbn/:isbn', async (req, res) => {
+  const isbn = req.params.isbn;
+  try {
+    const book = await Book.findOne({ isbn: isbn });
+    if (!book) {
+      return res.status(404).json({ error: 'Book not found' });
+    }
+    res.status(200).json([book]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/title/:title', async (req, res) => {
+  const title = req.params.title;
+  try {
+    const book = await Book.findOne({ title: title });
+    if (!book) {
+      // If book is not found, respond with 404 Not Found
+      return res.status(404).json({ error: 'Book not found' });
+    }
+    // If book is found, respond with 200 OK and the book data
+    res.status(200).json([book]);
+  } catch (err) {
+    // If an error occurs, respond with 500 Internal Server Error
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 // PUT route to edit a book
 router.post('/edit/:_id', upload.single('image'), async (req, res) => {
@@ -114,17 +144,6 @@ router.delete("/:isbn", getBookByIsbn, async (req, res) => {
   }
 });
 
-// router.delete("/:title", getBookByTitle, async (req, res) => {
-//   try {
-//     await res.book.deleteOne();
-//     console.log(res.book)
-//     res.json({ message: "Deleted Book" });
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
-
 router.delete("/delete/:id", async (req, res) => {
   console.log("delete " + req.params.id);
   try {
@@ -145,16 +164,6 @@ router.get("/:isbn", async (req, res) => {
   } 
   
 });
-
-// router.get("/:title", async (req, res) => { 
-//   try {
-//     const books = await Book.find({ title: req.params.title }).sort({views: -1, dateAdded: -1});
-//     res.json(books);
-//   } catch (err) {
-//     return res.status(500).json({ message: err.message });
-//   } 
-  
-// });
 
 
 router.get("/details/:_id", async (req, res) => { 
@@ -229,22 +238,5 @@ async function getBookByIsbn(req, res, next) {
   res.book = book;
   next();
 }
-
-// async function getBookByTitle(req, res, next) {
-//   let book;
-//   try {
-//     book = await Book.findOne({ title: req.params.title });
-//     if (book == null) {
-//       return res
-//         .status(404)
-//         .json({ message: "Cannot find book title " + req.params.title });
-//     }
-//   } catch (err) {
-//     return res.status(500).json({ message: err.message });
-//   }
-  
-//   res.book = book;
-//   next();
-// }
 
 module.exports = router;

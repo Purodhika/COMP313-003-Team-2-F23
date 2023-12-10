@@ -32,7 +32,9 @@ export default function Listing({ book, setAllListings }) {
  
 
   return (
-    <Card style={{ width: "25rem" }}>
+    <Card style={{ width: "50rem", minHeight: "5vh",
+    padding: "10px",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)", }}>
       <Card.Body>
         <Card.Img
           style={{
@@ -57,12 +59,50 @@ export default function Listing({ book, setAllListings }) {
         <Card.Subtitle className="mb-2 text-muted">
           Sold by:{book.sellerEmail}
         </Card.Subtitle>
-        <Button variant="primary" onClick={handleEdit}>
+        <Button variant="primary" onClick={handleEdit}
+          style={{
+            background: "#3498db",
+            color: "#fff",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "20px",
+            cursor: "pointer",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+            marginRight:"10px"
+          }}
+          onMouseOver={(e) => (e.target.style.background = "#2980b9")}
+          onMouseOut={(e) => (e.target.style.background = "#3498db")}>
           Update
         </Button>
-        {book.sold ? <Button variant="success">SOLD</Button> : <span></span>}
+        {book.sold ? <Button variant="success" style={{
+    background: "#2ecc71",
+    color: "#fff",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "20px",
+    cursor: "pointer",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+    marginLeft: "10px",
+  }}
+  onMouseOver={(e) => (e.target.style.background = "#27ae60")}
+  onMouseOut={(e) => (e.target.style.background = "#2ecc71")}>SOLD</Button> : <span></span>}
         {"  "}
-        <Button variant="danger" onClick={deleteRecord}>
+        <Button variant="danger" onClick={deleteRecord}style={{
+              background: "#e74c3c",
+              color: "#fff",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "20px",
+              cursor: "pointer",
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
+              marginLeft:"10px"
+            }}
+            onMouseOver={(e) => (e.target.style.background = "#c0392b")}
+            onMouseOut={(e) => (e.target.style.background = "#e74c3c")}
+          >
           Delete
         </Button>
       </Card.Body>

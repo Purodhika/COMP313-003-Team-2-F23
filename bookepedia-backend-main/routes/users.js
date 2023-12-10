@@ -3,6 +3,11 @@ const router = express.Router();
 const User = require("../models/user.js");
 const Book = require("../models/book.js")
 
+/**
+ * Component representing the details of the user.
+ 
+ */
+
 //Creating one user
 router.post("/register/", async (req, res) => {
   const { fname, lname, email, password, userType } = req.body;

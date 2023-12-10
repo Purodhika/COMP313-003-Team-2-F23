@@ -20,8 +20,11 @@ import OrderSummary from "./orders/OrderSummary";
 import UserOrders from "./orders/UserOrders";
 import EditListing from "./Listings/EditListing";
 
+/**
+ * Component to manage all routes for front-end
+ */
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState();
   const [userType, setUserType] = useState("USER");
   const [userEmail, setUserEmail] = useState("");
 
@@ -52,8 +55,6 @@ function App() {
             <Route path="/listings" element={<AllListings />}></Route>
             <Route path="/book-details/:_id" element={<BookDetails />}></Route>
             <Route path="/edit/:id" element={<EditListing />}> </Route>
-            {/* <Route path="/edit/:id" element={<BookUpload />}></Route> */}
-
             <Route
               path="/order-summary/:_id/:conditionVerification"
               element={<OrderSummary />}

@@ -3,12 +3,13 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-
 import logo from "./media/bookepedia.gif";
-
 import { useNavigate } from "react-router-dom";
 import accountContext from "./userAccounts/accountContextaccountContext";
 
+/**
+ * Component representing book listings
+ */
 function ShowListing(props) {
     const { userEmail } = React.useContext(accountContext);
   const [bookRec, setBookRec] = React.useState({

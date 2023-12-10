@@ -5,6 +5,9 @@ import CardInfo from "../cardInfo/CardInfo";
 import Button from "react-bootstrap/Button";
 import accountContext from "../userAccounts/accountContext";
 
+/**
+ * Component to confirm order before final checkout
+ */
 export default function OrderSummary() {
   const [paymentValidated, setPaymentValidated] = useState(false);
   const [book, setBook] = useState({});
@@ -34,6 +37,12 @@ export default function OrderSummary() {
 
   function handlePurchase() {
     //create order object
+    //try math the user email and seller's email
+    if(userEmail == book.sellerEmail){
+      alert("Same user! User Can not buy their own books");
+      return;
+    }
+
     var bodyData = {
       bookId: _id,
       buyerEmail: userEmail,
@@ -41,6 +50,7 @@ export default function OrderSummary() {
       isbn: book.isbn,
       price: book.price,
       conditionVerification:  conditionVerification ? "Yes" : "No"
+      //conditionVerification: "Yes"
     };
 
     axios
@@ -50,7 +60,9 @@ export default function OrderSummary() {
         if (res.status === 201) {
           alert(`Order successful`);
           navigate("/");
-        } else {
+        }
+   
+        else {
           alert(`Sorry, an error ocurred. Please try again later.`);
           navigate("/");
         }
@@ -59,11 +71,12 @@ export default function OrderSummary() {
 
   function handleCancel() {
     //navigate to home
+    navigate("/")
   }
 
   return (
     <div>
-      {paymentValidated ? (
+     {paymentValidated ? (
         <div>
           <h1>Order Summary</h1>
           <p>
@@ -83,11 +96,11 @@ export default function OrderSummary() {
             Cancel
           </Button>
         </div>
-      ) : (
-        <div>
-          <CardInfo setPaymentValidated={setPaymentValidated} />
-        </div>
-      )}
+     ) : (
+      <div>
+        <CardInfo setPaymentValidated={setPaymentValidated} />
+      </div>
+    )}
     </div>
   );
 }

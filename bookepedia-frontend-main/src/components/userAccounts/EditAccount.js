@@ -5,6 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+/**
+ * Component to edit an existing account
+ */
 export default function EditAccount() {
   let navigate = useNavigate();
   const { email } = useParams();

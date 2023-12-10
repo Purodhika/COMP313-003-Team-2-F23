@@ -19,12 +19,32 @@ export default function AccountList() {
       });
   }, []);
 
-  return (
-    <div>
-      <h1>All Accounts</h1>
-      {allAccounts.map((account) => (
-        <Account key={account._id} user={account} />
-      ))}
+  return (  <div style={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "100vh",
+    padding: "10px",
+    background: "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+  }}>
+    <div style={{
+      textAlign: "center",
+      maxWidth: "600px", // Adjust the width as needed
+      padding: "20px",
+      borderRadius: "10px",
+      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Add a subtle box shadow
+      background: "rgba(255, 255, 255, 0.8)", // Add a semi-transparent white background
+    }}>
+      <h1 style={{ marginBottom: "20px" }}>All Accounts</h1>
+      <div style={{ padding: "10px" }}>
+        {allAccounts.map((account, index) => (
+          <React.Fragment key={account._id}>
+            <Account user={account} />
+            {index !== allAccounts.length - 1 && <div style={{ marginBottom: "10px" }}></div>}
+          </React.Fragment>
+        ))}
+      </div>
     </div>
-  );
+  </div> );
 }
