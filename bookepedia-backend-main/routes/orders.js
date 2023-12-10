@@ -3,6 +3,9 @@ const router = express.Router();
 const Order = require("../models/order.js");
 const Book = require("../models/book.js");
 
+/**
+ * Component rto manage orders
+ */
 //update orders
 router.put("/:isbn", async (req, res) => {
   const { isbn } = req.params;

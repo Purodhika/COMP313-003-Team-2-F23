@@ -91,31 +91,6 @@ function NavBar(props) {
           </Nav>
 
           <Nav>
-            {/* <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button
-                variant="success"
-                style={{
-                  background: "#E76F51",
-                  color: "#fff",
-                  padding: "10px 20px",
-                  border: "none",
-                  borderRadius: "20px", // Adjusted for round edges
-                  cursor: "pointer",
-                  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                  transition: "background 0.3s, transform 0.3s, box-shadow 0.3s",
-                }}
-                onMouseOver={(e) => (e.target.style.background = "#FFA726")}
-                onMouseOut={(e) => (e.target.style.background = "#E76F51")}
-              >
-                Search
-              </Button>
-            </Form> */}
 
             {userType === "USER" && loggedIn ? (
               <LinkContainer to="upload">
@@ -151,16 +126,7 @@ function NavBar(props) {
             ) : (
               <div></div>
             )}
-            {/* {loggedIn ? (
-              <LinkContainer to="account-details">
-                <Nav.Link style={{ transition: "color 0.3s" }}
-                onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
-                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>My Account</Nav.Link>
-              </LinkContainer>
-            ) : (
-              <div></div>
-            )} */}
-
+      
             {loggedIn ? (
               <div></div>
             ) : (

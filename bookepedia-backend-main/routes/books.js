@@ -37,11 +37,8 @@ router.post("/upload/", upload.single('image'), async (req, res) => {
   console.log(book)  
   try {
     const newBook = await book.save();
-    //res.send(newBook)
-    //res.send('success')
     res.status(201).json(newBook);
   } catch (err) {
-    //res.send("ERROR: " + err.message)
     res.status(400).json({ message: err.message });
   }
 
@@ -146,17 +143,6 @@ router.delete("/:isbn", getBookByIsbn, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-/*
-router.delete("/:title", getBookByTitle, async (req, res) => {
-  try {
-    await res.book.deleteOne();
-    console.log(res.book)
-    res.json({ message: "Deleted Book" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-*/
 
 router.delete("/delete/:id", async (req, res) => {
   console.log("delete " + req.params.id);
@@ -178,17 +164,7 @@ router.get("/:isbn", async (req, res) => {
   } 
   
 });
-/*
-router.get("/:title", async (req, res) => { 
-  try {
-    const books = await Book.find({ title: req.params.title }).sort({views: -1, dateAdded: -1});
-    res.json(books);
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  } 
-  
-});
-*/
+
 
 router.get("/details/:_id", async (req, res) => { 
   //console.log("made it ")
@@ -259,22 +235,5 @@ async function getBookByIsbn(req, res, next) {
   res.book = book;
   next();
 }
-/*
-async function getBookByTitle(req, res, next) {
-  let book;
-  try {
-    book = await Book.findOne({ title: req.params.title });
-    if (book == null) {
-      return res
-        .status(404)
-        .json({ message: "Cannot find book title " + req.params.title });
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-  
-  res.book = book;
-  next();
-}
-*/
+
 module.exports = router;
